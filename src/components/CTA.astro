@@ -1,0 +1,93 @@
+---
+import Icon from './Icon.astro';
+
+// Support SquidLane / Bonzai.
+const TELEGRAM_URL = 'https://t.me/VadimBonzai';
+const EMAIL = 'support@bonzai.pro';
+---
+
+<section class="section cta" id="contact">
+  <div class="container">
+    <div class="cta__box" data-reveal>
+      <div class="cta__content">
+        <span class="eyebrow">Contact</span>
+        <h2>Passez à un partenaire<br /><span class="accent-word">qui joue dans votre camp.</span></h2>
+        <p class="cta__lead muted">
+          Parlez-nous de votre activité — on revient vers vous rapidement, avec un vrai
+          interlocuteur. Choisissez le canal qui vous convient.
+        </p>
+
+        <div class="cta__actions">
+          <a
+            href={TELEGRAM_URL}
+            target="_blank"
+            rel="noopener"
+            class="btn btn--primary btn--lg"
+            data-magnetic
+          >
+            <Icon name="telegram" size={18} /> Nous écrire sur Telegram
+          </a>
+          <a href={`mailto:${EMAIL}`} class="btn btn--ghost btn--lg">
+            <Icon name="mail" size={18} /> {EMAIL}
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta__box {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    padding: clamp(2.5rem, 7vw, 5.5rem) clamp(1.5rem, 5vw, 4rem);
+    text-align: center;
+    background: linear-gradient(165deg, var(--ink-800), var(--ink-950));
+    border: 1px solid var(--border-strong);
+  }
+  .cta__box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(420px, 80%);
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--indigo-500), transparent);
+  }
+  .cta__content {
+    position: relative;
+    z-index: 1;
+    max-width: 620px;
+    margin-inline: auto;
+  }
+  .cta__box h2 {
+    font-size: var(--fs-h2);
+    margin-bottom: 1.1rem;
+  }
+  .cta__lead {
+    font-size: var(--fs-lead);
+    margin-bottom: 2.2rem;
+  }
+
+  .cta__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+  }
+  .cta__actions .btn :global(svg) {
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 540px) {
+    .cta__actions {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .cta__actions .btn {
+      justify-content: center;
+    }
+  }
+</style>

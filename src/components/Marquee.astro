@@ -1,0 +1,77 @@
+---
+const items = [
+  'Liens de paiement instantanés',
+  'Checkout sur-mesure',
+  'Shopify',
+  'WooCommerce',
+  'Apple Pay',
+  'Cartes bancaires',
+  'Support humain',
+  'Zéro fonds gelé',
+  'Versements rapides',
+];
+---
+
+<section class="marquee" aria-hidden="true">
+  <div class="marquee__track">
+    {[0, 1].map(() => (
+      <div class="marquee__group">
+        {items.map((i) => (
+          <span class="marquee__item">
+            {i}
+            <span class="marquee__dot"></span>
+          </span>
+        ))}
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .marquee {
+    position: relative;
+    padding-block: 1.6rem;
+    border-top: 1px solid var(--hairline);
+    border-bottom: 1px solid var(--hairline);
+    background: var(--bg-soft);
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  }
+  .marquee__track {
+    display: flex;
+    width: max-content;
+    animation: scroll-x 38s linear infinite;
+    will-change: transform;
+    backface-visibility: hidden;
+  }
+  .marquee__group {
+    display: flex;
+    align-items: center;
+  }
+  .marquee__item {
+    display: inline-flex;
+    align-items: center;
+    gap: 1.6rem;
+    padding-right: 1.6rem;
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: var(--text-300);
+    white-space: nowrap;
+  }
+  .marquee__dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--indigo-500);
+    display: inline-block;
+  }
+  @keyframes scroll-x {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  .marquee:hover .marquee__track {
+    animation-play-state: paused;
+  }
+</style>

@@ -1,0 +1,378 @@
+@use 'sass:math';
+
+/* ============================================================
+   SquidLane — Design tokens
+   Charte extraite du produit : accent indigo #6366f1,
+   neutres "encre" (zinc), typographie Inter.
+   ============================================================ */
+:root {
+  /* Brand accent — rose/magenta SquidLane (couleur du logo) */
+  --pink-300: #f9a8d4;
+  --pink-400: #f25ca6;
+  --pink-500: #ec2d88; /* primaire — rgb(236, 45, 136) */
+  --pink-600: #d61f76;
+  --pink-700: #b3155f;
+
+  /* Alias : le code historique référence --indigo-* / --cyan-*.
+     On les fait pointer vers la palette rose pour rebrand sans tout réécrire. */
+  --indigo-300: var(--pink-300);
+  --indigo-400: var(--pink-400);
+  --indigo-500: var(--pink-500);
+  --indigo-600: var(--pink-600);
+  --indigo-700: var(--pink-700);
+
+  /* Accent secondaire (donnée positive) — teinte rose plus claire, pas de cyan */
+  --cyan-400: var(--pink-300);
+  --cyan-500: var(--pink-400);
+
+  /* Ink neutrals */
+  --ink-950: #07080f;
+  --ink-900: #0a0b14;
+  --ink-850: #0e1019;
+  --ink-800: #14161f;
+  --ink-700: #1b1e2b;
+  --ink-600: #262a3a;
+  --ink-500: #3a3f54;
+
+  --text-100: #f4f5fb;
+  --text-200: #c8cbdd;
+  --text-300: #9498b3;
+  --text-400: #6d7290;
+
+  --white: #ffffff;
+
+  /* Semantic */
+  --bg: var(--ink-950);
+  --bg-soft: var(--ink-900);
+  --surface: rgba(255, 255, 255, 0.03);
+  --surface-2: rgba(255, 255, 255, 0.05);
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.14);
+
+  /* Surfaces opaques (anti-glassmorphism) */
+  --surface-solid: var(--ink-850);
+  --surface-solid-2: var(--ink-800);
+  /* Bordures hiérarchisées */
+  --border-card: rgba(255, 255, 255, 0.1);
+  --hairline: rgba(255, 255, 255, 0.06);
+
+  --accent: var(--indigo-500);
+  --accent-bright: var(--indigo-400);
+
+  /* Type scale (fluid) */
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --fs-display: clamp(2.4rem, 1.1rem + 3.5vw, 4rem);
+  --fs-h1: clamp(2.25rem, 1.4rem + 4vw, 4rem);
+  --fs-h2: clamp(1.75rem, 1.2rem + 2.6vw, 3rem);
+  --fs-h3: clamp(1.25rem, 1rem + 1.2vw, 1.6rem);
+  --fs-lead: clamp(1.05rem, 0.95rem + 0.6vw, 1.35rem);
+  --fs-body: 1.0625rem;
+  --fs-small: 0.9rem;
+
+  /* Espacement rythmé */
+  --space-1: 0.5rem;
+  --space-2: 0.9rem;
+  --space-3: 1.4rem;
+  --space-4: 2rem;
+  --space-5: 3rem;
+  --space-6: 4.5rem;
+
+  /* Layout */
+  --maxw: 1200px;
+  --gutter: clamp(1.25rem, 5vw, 4rem);
+  --radius: 18px;
+  --radius-lg: 26px;
+  --radius-sm: 12px;
+
+  /* Easing (synchronisé avec CustomEase 'squid' côté JS) */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+/* ---------- Reset ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+/* Lenis disables native smooth scroll when active */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  line-height: 1.6;
+  color: var(--text-200);
+  background-color: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: inherit;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  color: var(--text-100);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.08;
+}
+
+::selection {
+  background: var(--indigo-500);
+  color: var(--white);
+}
+
+/* ---------- Layout helpers ---------- */
+.container {
+  width: 100%;
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.section {
+  position: relative;
+  padding-block: clamp(5rem, 10vw, 9rem);
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent-bright);
+  margin-bottom: 1.1rem;
+}
+.eyebrow::before {
+  content: '';
+  width: 26px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.55;
+}
+
+/* Dégradé mono — réservé au H1 hero uniquement */
+.gradient-text {
+  background: linear-gradient(120deg, var(--text-100), var(--indigo-300));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* Mot accentué dans les titres de section (couleur pleine, pas de dégradé) */
+.accent-word {
+  color: var(--indigo-300);
+}
+
+.muted {
+  color: var(--text-300);
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  --btn-pad-y: 0.85rem;
+  --btn-pad-x: 1.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  padding: var(--btn-pad-y) var(--btn-pad-x);
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.98rem;
+  letter-spacing: -0.01em;
+  line-height: 1;
+  transition: transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out),
+    background 0.3s var(--ease-out), border-color 0.3s var(--ease-out);
+  will-change: transform;
+}
+.btn:active {
+  transform: translateY(1px) scale(0.99);
+}
+
+.btn--primary {
+  color: var(--white);
+  background: linear-gradient(180deg, var(--indigo-500), var(--indigo-600));
+  box-shadow: 0 6px 20px -10px rgba(236, 45, 136, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+.btn--primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 40px -10px rgba(236, 45, 136, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.28);
+}
+
+.btn--ghost {
+  color: var(--text-100);
+  background: var(--surface-solid-2);
+  border: 1px solid var(--border-strong);
+}
+.btn--ghost:hover {
+  transform: translateY(-2px);
+  background: var(--surface-solid);
+  border-color: var(--accent);
+}
+
+.btn--lg {
+  --btn-pad-y: 1.05rem;
+  --btn-pad-x: 2rem;
+  font-size: 1.05rem;
+}
+
+/* ---------- Cards / surfaces ---------- */
+.card {
+  position: relative;
+  background: var(--surface-solid);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+/* ---------- Payment logos (trust bar) ---------- */
+.pay-logos {
+  display: flex;
+  align-items: center;
+  gap: clamp(1.1rem, 3vw, 1.7rem);
+  list-style: none;
+  flex-wrap: wrap;
+}
+.pay-logo {
+  display: inline-flex;
+  color: var(--text-300);
+  opacity: 0.7;
+  transition: color 0.3s var(--ease-out), opacity 0.3s var(--ease-out);
+}
+.pay-logo svg {
+  height: 20px;
+  width: auto;
+  fill: currentColor;
+}
+.pay-logo[aria-label='Apple Pay'] svg,
+.pay-logo[aria-label='Google Pay'] svg {
+  height: 22px;
+}
+.pay-logo:hover {
+  color: var(--text-100);
+  opacity: 1;
+}
+/* paycard sur fond sombre : un cran plus lisible */
+.pay-logos--paycard .pay-logo {
+  color: var(--text-200);
+  opacity: 0.8;
+}
+
+/* ---------- Reveal animations (driven by GSAP, with no-JS fallback) ---------- */
+[data-reveal],
+[data-reveal-item] {
+  opacity: 0;
+  transform: translateY(34px);
+  clip-path: inset(0 0 100% 0);
+  will-change: transform, opacity, clip-path;
+}
+[data-reveal='left'] {
+  clip-path: inset(0 100% 0 0);
+}
+[data-reveal='right'] {
+  clip-path: inset(0 0 0 100%);
+}
+html.no-js [data-reveal],
+html.no-js [data-reveal-item],
+.reveal-in [data-reveal],
+.reveal-in [data-reveal-item] {
+  opacity: 1;
+  transform: none;
+  clip-path: none !important;
+}
+
+/* Honour reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  [data-reveal],
+  [data-reveal-item] {
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+  }
+}
+
+/* ---------- Barre de progression scroll ---------- */
+.scroll-progress {
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: 2px;
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  background: linear-gradient(90deg, var(--pink-600), var(--pink-400), var(--pink-300));
+  z-index: 200;
+  pointer-events: none;
+}
+
+/* ---------- Decorative glows / grain ---------- */
+.glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: 0;
+  will-change: transform, opacity;
+}
+
+.grid-bg {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 30%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 30%, transparent 75%);
+  pointer-events: none;
+  z-index: 0;
+}

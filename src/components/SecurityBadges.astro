@@ -1,0 +1,107 @@
+---
+import Icon from './Icon.astro';
+
+interface Props {
+  class?: string;
+}
+const { class: className = '' } = Astro.props;
+
+const seals = [
+  { icon: 'shieldCheck', label: '3D Secure', caption: 'Authentification forte' },
+  { icon: 'lock', label: 'PCI DSS', caption: 'Niveau 1' },
+  { icon: 'badgeCheck', label: 'RGPD', caption: 'Conforme' },
+];
+---
+
+<div class:list={['seals', className]}>
+  <span class="seals__label">Sécurité de niveau bancaire</span>
+  <ul class="seals__row" aria-label="Certifications de sécurité et de conformité">
+    {
+      seals.map((s) => (
+        <li class="seal">
+          <span class="seal__emblem">
+            <Icon name={s.icon} size={20} />
+          </span>
+          <span class="seal__text">
+            <strong>{s.label}</strong>
+            <small>{s.caption}</small>
+          </span>
+        </li>
+      ))
+    }
+  </ul>
+</div>
+
+<style>
+  .seals__label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--pink-400);
+    margin-bottom: 0.9rem;
+  }
+  .seals__label::before {
+    content: '';
+    width: 22px;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.55;
+  }
+
+  .seals__row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+    list-style: none;
+  }
+  .seal {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.6rem 0.95rem 0.6rem 0.6rem;
+    border-radius: 14px;
+    background: var(--surface-solid-2);
+    border: 1px solid rgba(236, 45, 136, 0.22);
+    transition: transform 0.35s var(--ease-out), border-color 0.35s var(--ease-out);
+  }
+  .seal:hover {
+    transform: translateY(-3px);
+    border-color: rgba(236, 45, 136, 0.5);
+  }
+  .seal__emblem {
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    background: var(--ink-950);
+    border: 1px solid var(--border-card);
+    color: var(--pink-400);
+    flex-shrink: 0;
+  }
+  .seal__text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.15;
+  }
+  .seal__text strong {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-100);
+    letter-spacing: -0.01em;
+  }
+  .seal__text small {
+    font-size: 0.72rem;
+    color: var(--text-400);
+  }
+
+  @media (max-width: 420px) {
+    .seal {
+      flex: 1 1 100%;
+    }
+  }
+</style>

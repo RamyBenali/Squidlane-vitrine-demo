@@ -1,0 +1,31 @@
+---
+// Vrais logos de marque (simple-icons, single-path fill=currentColor), monochrome.
+import visa from '../assets/brands/visa.svg?raw';
+import mastercard from '../assets/brands/mastercard.svg?raw';
+import amex from '../assets/brands/americanexpress.svg?raw';
+import applepay from '../assets/brands/applepay.svg?raw';
+import googlepay from '../assets/brands/googlepay.svg?raw';
+
+interface Props {
+  brands?: string[];
+  variant?: string;
+}
+const { brands = ['visa', 'mastercard', 'amex', 'applepay'], variant = '' } = Astro.props;
+
+const map: Record<string, string> = { visa, mastercard, amex, applepay, googlepay };
+const names: Record<string, string> = {
+  visa: 'Visa',
+  mastercard: 'Mastercard',
+  amex: 'American Express',
+  applepay: 'Apple Pay',
+  googlepay: 'Google Pay',
+};
+---
+
+<ul class:list={['pay-logos', variant]} role="img" aria-label="Moyens de paiement acceptés">
+  {
+    brands
+      .filter((b) => map[b])
+      .map((b) => <li class="pay-logo" aria-label={names[b]} set:html={map[b]} />)
+  }
+</ul>

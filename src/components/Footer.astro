@@ -1,0 +1,151 @@
+---
+import Logo from './Logo.astro';
+
+const cols = [
+  {
+    title: 'Produit',
+    links: [
+      { label: 'Liens de paiement', href: '#features' },
+      { label: 'Checkout', href: '#features' },
+      { label: 'Tarifs', href: '#pricing' },
+      { label: 'Versements', href: '#payouts' },
+    ],
+  },
+  {
+    title: 'Entreprise',
+    links: [
+      { label: 'À propos', href: '#' },
+      { label: 'Contact', href: '#contact' },
+    ],
+  },
+];
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <Logo />
+        <p class="muted">
+          Le processeur de paiement sélectif pour les marchands sérieux. Encaissez sans
+          craindre le gel de vos fonds.
+        </p>
+        <div class="footer__partner">
+          <span class="footer__partner-label">Sécurité &amp; conformité</span>
+          <p class="footer__partner-text muted">
+            Processeur de paiement certifié <strong>3D&nbsp;Secure</strong>,
+            <strong>PCI&nbsp;DSS niveau&nbsp;1</strong> et <strong>RGPD</strong>.
+          </p>
+        </div>
+      </div>
+
+      <div class="footer__cols">
+        {cols.map((c) => (
+          <div class="footer__col">
+            <h4>{c.title}</h4>
+            <ul>
+              {c.links.map((l) => (
+                <li><a href={l.href}>{l.label}</a></li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <span class="muted">© {year} SquidLane. Tous droits réservés.</span>
+      <span class="muted">Conçu pour les marchands qui scalent.</span>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    border-top: 1px solid var(--hairline);
+    background: var(--bg-soft);
+    padding-block: clamp(3rem, 6vw, 4.5rem) 2rem;
+  }
+  .footer__top {
+    display: grid;
+    grid-template-columns: 1.3fr 2fr;
+    gap: clamp(2rem, 6vw, 5rem);
+    padding-bottom: 3rem;
+    border-bottom: 1px solid var(--hairline);
+  }
+  .footer__brand p {
+    font-size: 0.95rem;
+    max-width: 34ch;
+    margin: 1.1rem 0 1rem;
+  }
+  .footer__partner {
+    margin-top: 1.25rem;
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--ink-700);
+  }
+  .footer__partner-label {
+    display: block;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-400);
+    margin-bottom: 0.5rem;
+  }
+  .footer__partner-text {
+    font-size: 0.85rem;
+    margin: 0;
+  }
+  .footer__partner-text strong {
+    color: var(--text-100);
+    font-weight: 600;
+  }
+
+  .footer__cols {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+  .footer__col h4 {
+    font-size: 0.82rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-400);
+    margin-bottom: 1rem;
+  }
+  .footer__col ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+  .footer__col a {
+    font-size: 0.95rem;
+    color: var(--text-300);
+    transition: color 0.25s var(--ease-out);
+  }
+  .footer__col a:hover {
+    color: var(--text-100);
+  }
+
+  .footer__bottom {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-top: 2rem;
+    font-size: 0.85rem;
+  }
+
+  @media (max-width: 760px) {
+    .footer__top {
+      grid-template-columns: 1fr;
+    }
+  }
+  @media (max-width: 480px) {
+    .footer__cols {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>

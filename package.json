@@ -1,0 +1,21 @@
+{
+  "name": "squidlane-vitrine",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "astro": "^4.16.18"
+  },
+  "devDependencies": {
+    "gsap": "^3.15.0",
+    "lenis": "^1.1.18",
+    "sass": "^1.83.0"
+  }
+}

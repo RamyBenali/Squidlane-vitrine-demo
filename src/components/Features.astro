@@ -1,0 +1,226 @@
+---
+import Icon from './Icon.astro';
+import PaymentMarks from './PaymentMarks.astro';
+---
+
+<section class="section features" id="features">
+  <div class="container">
+    <div class="features__head" data-reveal>
+      <span class="eyebrow">La solution</span>
+      <h2>Tout pour encaisser,<br /><span class="accent-word">rien pour vous freiner.</span></h2>
+      <p class="muted">
+        Une plateforme complète : du lien de paiement créé en quelques secondes au
+        checkout intégré à votre boutique.
+      </p>
+    </div>
+
+    <div class="bento" data-reveal-group>
+      <!-- Carte large : liens de paiement -->
+      <article class="bento__card bento__card--wide" data-reveal-item>
+        <div class="bento__icon"><Icon name="link" size={22} /></div>
+        <h3>Liens de paiement instantanés</h3>
+        <p class="muted">
+          Créez un lien de paiement sécurisé et partageable en quelques secondes depuis
+          votre tableau de bord. Envoyez-le, encaissez, suivez le paiement en temps réel.
+        </p>
+        <div class="bento__demo">
+          <code>theclub.squidlane.com/buy/<span>offr_fv9_Sn8npo</span></code>
+          <button class="bento__copy" data-copy="https://theclub.squidlane.com/buy/offr_fv9_Sn8npo"><Icon name="copy" size={14} />Copier</button>
+        </div>
+      </article>
+
+      <!-- Checkout custom -->
+      <article class="bento__card" data-reveal-item>
+        <div class="bento__icon"><Icon name="cart" size={22} /></div>
+        <h3>Checkout sur-mesure</h3>
+        <p class="muted">
+          Intégration personnalisable pour Shopify et WooCommerce. Vos couleurs, votre
+          marque, notre infrastructure.
+        </p>
+        <a
+          href="https://theclub.squidlane.com/buy/offr_fv9_Sn8npo"
+          target="_blank"
+          rel="noopener"
+          class="bento__link"
+        >
+          Voir un exemple de checkout
+          <Icon name="arrowRight" size={15} />
+        </a>
+      </article>
+
+      <!-- Moyens de paiement -->
+      <article class="bento__card" data-reveal-item>
+        <div class="bento__icon"><Icon name="card" size={22} /></div>
+        <h3>Paiement par carte</h3>
+        <p class="muted">Visa, Mastercard, American Express et Apple Pay.</p>
+        <PaymentMarks brands={['visa', 'mastercard', 'amex', 'applepay']} />
+      </article>
+
+      <!-- Multi-devises -->
+      <article class="bento__card" data-reveal-item>
+        <div class="bento__icon"><Icon name="globe" size={22} /></div>
+        <h3>EUR, USD &amp; au-delà</h3>
+        <p class="muted">
+          Règlement en EUR ou USD. Vos clients paient dans la plupart des grandes devises,
+          conversion bancaire automatique.
+        </p>
+      </article>
+
+      <!-- Gestion marchand -->
+      <article class="bento__card" data-reveal-item>
+        <div class="bento__icon"><Icon name="dash" size={22} /></div>
+        <h3>Gestion marchand</h3>
+        <p class="muted">
+          Un tableau de bord clair pour piloter vos paiements, clients et versements.
+        </p>
+      </article>
+
+      <!-- Protection (large) -->
+      <article class="bento__card bento__card--accent bento__card--wide" data-reveal-item>
+        <div class="bento__icon"><Icon name="shieldCheck" size={22} /></div>
+        <h3>Protection garantie après approbation</h3>
+        <p class="muted">
+          Pas de suspensions inattendues, pas de fonds gelés. Une fois votre compte
+          approuvé, vous encaissez l’esprit tranquille — avec un support humain à vos côtés.
+        </p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<style>
+  .features__head {
+    max-width: 640px;
+    margin-bottom: clamp(2.5rem, 5vw, 4rem);
+  }
+  .features__head h2 {
+    font-size: var(--fs-h2);
+    margin-bottom: 1rem;
+  }
+  .features__head p {
+    font-size: var(--fs-lead);
+  }
+
+  .bento {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.1rem;
+  }
+  .bento__card {
+    position: relative;
+    padding: 1.8rem;
+    border-radius: var(--radius);
+    background: var(--surface-solid);
+    border: 1px solid var(--border-card);
+    overflow: hidden;
+    transition: transform 0.4s var(--ease-out), border-color 0.4s var(--ease-out),
+      box-shadow 0.4s var(--ease-out);
+  }
+  .bento__card:hover {
+    transform: translateY(-4px);
+    border-color: var(--border-strong);
+    box-shadow: 0 12px 32px -12px rgba(0, 0, 0, 0.5);
+  }
+  .bento__card--wide {
+    grid-column: span 2;
+  }
+  .bento__card--accent {
+    background: var(--ink-850);
+    border-color: rgba(236, 45, 136, 0.28);
+  }
+
+  .bento__icon {
+    display: grid;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    background: var(--surface-solid-2);
+    color: var(--indigo-400);
+    margin-bottom: 1.2rem;
+  }
+  .bento__icon :global(svg) {
+    width: 22px;
+    height: 22px;
+  }
+  .bento__card h3 {
+    font-size: var(--fs-h3);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.6rem;
+  }
+  .bento__card p {
+    font-size: 0.9rem;
+    line-height: 1.55;
+    color: var(--text-300);
+  }
+  .bento__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 1.2rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--indigo-400);
+    transition: gap 0.3s var(--ease-out), color 0.3s var(--ease-out);
+  }
+  .bento__link:hover {
+    gap: 0.7rem;
+    color: var(--indigo-300);
+  }
+
+  .bento__demo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 1.4rem;
+    padding: 0.85rem 1rem;
+    border-radius: 12px;
+    background: var(--ink-950);
+    border: 1px solid var(--border);
+  }
+  .bento__demo code {
+    font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+    font-size: 0.88rem;
+    color: var(--text-300);
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .bento__copy {
+    flex-shrink: 0;
+  }
+  .bento__demo code span {
+    color: var(--indigo-300);
+  }
+  .bento__copy {
+    font-size: 0.8rem;
+    font-weight: 600;
+    background: none;
+    border: none;
+    color: var(--indigo-400);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    cursor: pointer;
+  }
+
+  @media (max-width: 860px) {
+    .bento {
+      grid-template-columns: 1fr 1fr;
+    }
+    .bento__card--wide {
+      grid-column: span 2;
+    }
+  }
+  @media (max-width: 560px) {
+    .bento {
+      grid-template-columns: 1fr;
+    }
+    .bento__card--wide {
+      grid-column: span 1;
+    }
+  }
+</style>

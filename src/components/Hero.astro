@@ -1,0 +1,374 @@
+---
+import Icon from './Icon.astro';
+import PaymentMarks from './PaymentMarks.astro';
+import SecurityBadges from './SecurityBadges.astro';
+---
+
+<section class="hero" data-hero id="top">
+  <div class="grid-bg"></div>
+  <div class="glow hero__glow hero__glow--1" data-parallax="0.25"></div>
+
+  <div class="container hero__inner">
+    <div class="hero__copy">
+      <p class="eyebrow" data-hero-sub>Solution de paiement premium</p>
+
+      <h1 class="hero__title">
+        <span class="line line--muted"><span data-hero-line>Encaissez sans</span></span>
+        <span class="line"><span data-hero-line class="gradient-text">jamais craindre</span></span>
+        <span class="line line--muted"><span data-hero-line>le gel de vos fonds.</span></span>
+      </h1>
+
+      <p class="hero__sub" data-hero-sub>
+        SquidLane est le processeur de paiement <strong>sélectif</strong> pensé pour les
+        marchands sérieux. L'alternative plus humaine à Stripe et Shopify Payments —
+        sans suspensions surprises, avec un vrai interlocuteur.
+      </p>
+
+      <div class="hero__ctas">
+        <a href="#contact" class="btn btn--primary btn--lg" data-hero-cta data-magnetic>
+          Nous contacter
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <a
+          href="https://theclub.squidlane.com/buy/offr_fv9_Sn8npo"
+          target="_blank"
+          rel="noopener"
+          class="btn btn--ghost btn--lg"
+          data-hero-cta
+        >
+          Voir un exemple de checkout
+        </a>
+      </div>
+
+      <div class="hero__security" data-hero-sub>
+        <SecurityBadges />
+      </div>
+    </div>
+
+    <div class="hero__visual" data-hero-visual>
+      <div class="hero__ring" data-parallax="-0.12"></div>
+
+      <!-- Carte produit : lien de paiement -->
+      <div class="paycard">
+        <div class="paycard__top">
+          <span class="paycard__brand">
+            <svg viewBox="0 0 235 198" width="20" fill="currentColor" aria-hidden="true"><path d="M185.348 118.513c-4.381-1.75-8.664-3.404-12.558-5.155a12.142 12.142 0 0 1-3.213-9.043c.681-3.89 1.296-4.162 6.905-9.45 15.954-15.04 14.504-24.662 30.458-22.739 15.954 1.923 9.186-62.814-1.934-69.98-14.534-9.366-95.478 14.005-87.022 29.941 8.455 15.936-23.206 31.39-23.206 31.39-2.175 2.171-6.18 2.953-8.732 4.662-14.117.973-31.252-19.45-58.414-14.975C9.84 56.052-2.315 72.702.372 90.506c.457 18.047 14.94 32.599 33.004 33.161 24.241 0 31.251-17.504 28.038-30.73-1.76-7.299-10.772-9.956-16.22-4.784a9.748 9.748 0 0 0-2.764 9.355c.876 4.084-.681 6.709-9.054 6.709-8.373 0-13.143-9.724-13.63-15.364 0-1.46-.876-14.587 10.514-16.434 15.189-2.432 26.579 7.974 40.89 12.836a27.51 27.51 0 0 1 12.656 25.381l-4.77 2.139c-11.975 5.349-25.507 11.378-31.348 25.187-8.153 15.103-4.757 33.831 8.178 45.122 24.046 20.033 56.855 1.361 49.65-22.658a19.463 19.463 0 0 0-16.16-14.393c-7.462.709-11.356 9.219-7.012 15.319a9.739 9.739 0 0 0 3.994 3.255c1.752 2.82-.487 4.668-2.337 5.932a15.2 15.2 0 0 1-15.48-2.432c-5.938-4.861-6.814-12.641-2.628-22.463 2.92-6.807 11.585-10.697 21.516-15.17a153.904 153.904 0 0 0 16.063-7.974 48.733 48.733 0 0 1 22.197 5.737 40.944 40.944 0 0 0 19.472 26.548 17.016 17.016 0 0 1 10.222 17.699 9.054 9.054 0 0 1-9.736 6.029c-7.494.001-12.178 8.105-8.431 14.588a9.738 9.738 0 0 0 8.431 4.861c13.074.673 24.906-7.689 28.623-20.227 3.152-14.008-2.604-28.515-14.506-36.564 3.115-7.002 6.231-8.169 9.736-8.46l9.735 3.889c15.285 6.029 36.314 14.296 36.314 23.826 0 14.587-12.559 6.515-13.143 4.57 0-7.485-8.113-12.165-14.604-8.422a9.724 9.724 0 0 0-4.868 8.422c0 26.743 52.086 36.564 52.086-4.57-.974-22.756-27.941-33.356-49.652-41.913Zm-84.31-46.387c-.366-7.477 7.509-12.545 14.175-9.124 6.665 3.422 7.122 12.769.822 16.824a9.74 9.74 0 0 1-5.748 1.539 9.731 9.731 0 0 1-9.249-9.239Zm28.526 20.81c-2.223-7.148 4.135-14.02 11.445-12.369 5.538 1.252 8.834 6.954 7.149 12.37-2.222 7.149-11.359 9.214-16.447 3.716a9.71 9.71 0 0 1-2.147-3.716Z"/></svg>
+            SquidLane
+          </span>
+          <span class="paycard__secure"><Icon name="lock" size={14} /> Lien sécurisé</span>
+        </div>
+        <div class="paycard__amount">
+          <span class="paycard__label">Montant à régler</span>
+          <span class="paycard__value">1 280,00 €</span>
+        </div>
+        <div class="paycard__methods">
+          <PaymentMarks brands={['visa', 'mastercard', 'amex', 'applepay']} variant="pay-logos--paycard" />
+        </div>
+        <button class="paycard__pay">Payer 1 280,00 €</button>
+        <p class="paycard__footer">Sécurisé par <strong>SquidLane</strong></p>
+      </div>
+
+      <!-- Petites cartes flottantes -->
+      <div class="float-card float-card--paid" data-parallax="-0.3" data-parallax-trigger=".hero">
+        <span class="check"><Icon name="check" size={16} /></span>
+        <div>
+          <strong>Paiement reçu</strong>
+          <small>+1 280,00 € · à l'instant</small>
+        </div>
+      </div>
+      <div class="float-card float-card--rate" data-parallax="0.22" data-parallax-trigger=".hero">
+        <small>Taux dégressif</small>
+        <strong>jusqu'à 0,7%</strong>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero__scroll" aria-hidden="true">
+    <span>Défiler</span>
+    <span class="hero__scroll-line"></span>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+    padding-top: 120px;
+    padding-bottom: 60px;
+    overflow: hidden;
+  }
+  .hero__glow {
+    z-index: 0;
+  }
+  .hero__glow--1 {
+    width: 620px;
+    height: 620px;
+    top: -160px;
+    right: -120px;
+    background: radial-gradient(circle, rgba(236, 45, 136, 0.25), transparent 70%);
+  }
+
+  .hero__inner {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: clamp(1.5rem, 4vw, 3.5rem);
+    align-items: center;
+  }
+
+  .eyebrow[data-hero-sub] {
+    margin-bottom: 1.6rem;
+  }
+
+  .hero__title {
+    font-size: var(--fs-display);
+    line-height: 1.02;
+    margin-bottom: 1.5rem;
+  }
+  .hero__title .line--muted span {
+    color: var(--text-300);
+    font-weight: 600;
+  }
+  .hero__title .line {
+    display: block;
+    overflow: hidden;
+    padding-bottom: 0.04em;
+  }
+  .hero__title .line span {
+    display: block;
+  }
+
+  .hero__sub {
+    font-size: var(--fs-lead);
+    color: var(--text-300);
+    max-width: 38ch;
+    margin-bottom: 2.2rem;
+  }
+  .hero__sub strong {
+    color: var(--text-100);
+    font-weight: 600;
+  }
+
+  .hero__ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 2.2rem;
+  }
+
+  .hero__trust {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    font-size: 0.9rem;
+    color: var(--text-400);
+    flex-wrap: wrap;
+  }
+  .hero__trust strong {
+    color: var(--text-200);
+    font-weight: 600;
+  }
+  .hero__trust .sep {
+    width: 1px;
+    height: 12px;
+    background: var(--hairline);
+  }
+
+  /* ---- Visual ---- */
+  .hero__visual {
+    position: relative;
+    display: grid;
+    place-items: center;
+    min-height: 460px;
+  }
+  .hero__ring {
+    position: absolute;
+    width: 520px;
+    height: 520px;
+    border-radius: 50%;
+    border: 1px solid var(--ink-700);
+  }
+
+  .paycard {
+    position: relative;
+    z-index: 3;
+    width: min(360px, 86vw);
+    padding: 1.6rem;
+    border-radius: var(--radius-lg);
+    background: var(--ink-850);
+    border: 1px solid var(--ink-700);
+    border-top: 1px solid var(--ink-600);
+    box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.6);
+    /* Promotion GPU : évite le snapping sous-pixel pendant le flottement */
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+  .paycard__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.4rem;
+  }
+  .paycard__brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-weight: 700;
+    color: var(--indigo-400);
+  }
+  .paycard__secure {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.72rem;
+    color: var(--text-400);
+  }
+  .paycard__amount {
+    margin-bottom: 1.3rem;
+  }
+  .paycard__label {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--text-400);
+    margin-bottom: 0.3rem;
+  }
+  .paycard__value {
+    font-size: 2.1rem;
+    font-weight: 800;
+    color: var(--text-100);
+    letter-spacing: -0.03em;
+  }
+  .paycard__methods {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin-bottom: 1.4rem;
+  }
+  .paycard__pay {
+    width: 100%;
+    padding: 0.95rem;
+    border-radius: 12px;
+    font-weight: 600;
+    color: #fff;
+    background: linear-gradient(180deg, var(--indigo-500), var(--indigo-600));
+    box-shadow: 0 10px 26px -8px rgba(236, 45, 136, 0.6);
+    transition: transform 0.25s var(--ease-out);
+  }
+  .paycard__pay:hover {
+    transform: translateY(-2px);
+  }
+  .paycard__footer {
+    text-align: center;
+    font-size: 0.74rem;
+    color: var(--text-400);
+    margin-top: 0.9rem;
+  }
+  .paycard__footer strong {
+    color: var(--text-200);
+  }
+
+  .float-card {
+    position: absolute;
+    z-index: 4;
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.8rem 1rem;
+    border-radius: 14px;
+    background: var(--ink-800);
+    border: 1px solid var(--ink-700);
+    box-shadow: 0 20px 50px -20px rgba(0, 0, 0, 0.7);
+    will-change: transform;
+    backface-visibility: hidden;
+  }
+  .float-card small {
+    display: block;
+    color: var(--text-400);
+    font-size: 0.74rem;
+  }
+  .float-card strong {
+    color: var(--text-100);
+    font-size: 0.92rem;
+  }
+  .float-card--paid {
+    top: -2%;
+    left: -11%;
+  }
+  .float-card--paid .check {
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(52, 211, 153, 0.15);
+    color: #34d399;
+    font-weight: 700;
+  }
+  .float-card--rate {
+    bottom: 4%;
+    right: -7%;
+    text-align: right;
+  }
+  .float-card--rate strong {
+    color: var(--cyan-400);
+    font-size: 1.05rem;
+  }
+
+  .hero__scroll {
+    position: absolute;
+    bottom: 26px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-400);
+    z-index: 2;
+  }
+  .hero__scroll-line {
+    width: 1px;
+    height: 38px;
+    background: linear-gradient(var(--text-400), transparent);
+    animation: scrolldown 2.2s var(--ease-in-out) infinite;
+    transform-origin: top;
+  }
+  @keyframes scrolldown {
+    0% { transform: scaleY(0); }
+    40% { transform: scaleY(1); transform-origin: top; }
+    60% { transform: scaleY(1); transform-origin: bottom; }
+    100% { transform: scaleY(0); transform-origin: bottom; }
+  }
+
+  @media (max-width: 900px) {
+    .hero__inner {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+    .hero__sub {
+      margin-inline: auto;
+    }
+    .hero__ctas,
+    .hero__trust {
+      justify-content: center;
+    }
+    .hero__visual {
+      margin-top: 1rem;
+      min-height: 420px;
+    }
+    .hero__ring {
+      width: 380px;
+      height: 380px;
+    }
+    .hero__scroll {
+      display: none;
+    }
+  }
+</style>

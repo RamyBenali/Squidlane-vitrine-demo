@@ -1,0 +1,223 @@
+---
+import Icon from './Icon.astro';
+
+const pains = [
+  {
+    icon: 'frost',
+    title: 'Fonds gelés du jour au lendemain',
+    text: 'Un pic de ventes, un litige, et votre trésorerie est bloquée sans explication.',
+  },
+  {
+    icon: 'ban',
+    title: 'Comptes suspendus sans préavis',
+    text: 'Les processeurs grand public ferment d’abord, discutent ensuite. Parfois jamais.',
+  },
+  {
+    icon: 'bot',
+    title: 'Support robotisé',
+    text: 'Des tickets sans fin, des réponses automatiques, zéro interlocuteur réel.',
+  },
+];
+
+const gains = [
+  {
+    icon: 'shieldCheck',
+    title: 'Vos revenus protégés',
+    text: 'Pas de suspensions surprises ni de fonds gelés — garanti après approbation de votre compte.',
+  },
+  {
+    icon: 'userRound',
+    title: 'Un vrai interlocuteur',
+    text: 'Un support humain qui connaît votre activité et vous répond vraiment.',
+  },
+  {
+    icon: 'badgeCheck',
+    title: 'Une sélection à l’entrée',
+    text: 'On valide votre activité en amont. Résultat : de la stabilité, pas des coupures.',
+  },
+];
+---
+
+<section class="section solution" id="solution">
+  <div class="container">
+    <div class="solution__head" data-reveal>
+      <span class="eyebrow">Le problème</span>
+      <h2 class="solution__title">
+        Vous vendez sérieusement.<br />
+        <span class="accent-word">Votre processeur devrait suivre.</span>
+      </h2>
+      <p class="solution__lead muted">
+        Stripe, Shopify Payments &amp; co sont pensés pour le volume de masse — pas pour
+        protéger un marchand qui scale. SquidLane inverse la logique.
+      </p>
+    </div>
+
+    <div class="solution__compare">
+      <div class="compare-col compare-col--pain" data-reveal-group>
+        <span class="compare-col__tag compare-col__tag--bad">Ailleurs</span>
+        {pains.map((p) => (
+          <div class="compare-card" data-reveal-item>
+            <span class="compare-card__icon"><Icon name={p.icon} size={20} /></span>
+            <div>
+              <h3>{p.title}</h3>
+              <p class="muted">{p.text}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div class="compare-divider" aria-hidden="true">
+        <svg class="divider-svg" width="2" height="100%" viewBox="0 0 2 200" preserveAspectRatio="none">
+          <line class="divider-line" x1="1" y1="0" x2="1" y2="200" stroke="var(--ink-600)" stroke-width="2"/>
+        </svg>
+        <span class="divider-vs">vs</span>
+      </div>
+
+      <div class="compare-col compare-col--gain" data-reveal-group>
+        <span class="compare-col__tag compare-col__tag--good">Avec SquidLane</span>
+        {gains.map((g) => (
+          <div class="compare-card compare-card--good" data-reveal-item>
+            <span class="compare-card__icon"><Icon name={g.icon} size={20} /></span>
+            <div>
+              <h3>{g.title}</h3>
+              <p class="muted">{g.text}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .solution {
+    overflow: hidden;
+  }
+  .solution__head {
+    max-width: 720px;
+    margin: 0 auto clamp(3rem, 6vw, 5rem);
+    text-align: center;
+  }
+  .solution__title {
+    font-size: var(--fs-h2);
+    margin-bottom: 1.2rem;
+  }
+  .solution__lead {
+    font-size: var(--fs-lead);
+    max-width: 52ch;
+    margin-inline: auto;
+  }
+
+  .solution__compare {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: clamp(1rem, 3vw, 2.5rem);
+    align-items: start;
+  }
+  .compare-col {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .compare-col__tag {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    padding: 0;
+    background: none;
+    border: none;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+  .compare-col__tag::before {
+    content: '';
+    width: 24px;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.5;
+    margin-right: 0.5rem;
+  }
+  .compare-col__tag--bad {
+    color: var(--text-400);
+  }
+  .compare-col__tag--good {
+    color: var(--indigo-400);
+  }
+
+  .compare-card {
+    display: flex;
+    gap: 1rem;
+    padding: 1.4rem;
+    border-radius: var(--radius);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    transition: transform 0.4s var(--ease-out), border-color 0.4s var(--ease-out);
+  }
+  .compare-card:hover {
+    transform: translateY(-4px);
+  }
+  .compare-card--good {
+    background: linear-gradient(165deg, rgba(236, 45, 136, 0.1), var(--surface));
+    border-color: rgba(236, 45, 136, 0.22);
+  }
+  .compare-card--good:hover {
+    border-color: rgba(236, 45, 136, 0.5);
+  }
+  .compare-card__icon {
+    display: inline-flex;
+    line-height: 1;
+    flex-shrink: 0;
+    color: var(--text-400);
+  }
+  .compare-card--good .compare-card__icon {
+    color: var(--indigo-400);
+  }
+  .compare-card h3 {
+    font-size: 1.08rem;
+    margin-bottom: 0.35rem;
+  }
+  .compare-card p {
+    font-size: 0.92rem;
+    line-height: 1.5;
+  }
+
+  .compare-divider {
+    position: relative;
+    display: grid;
+    place-items: center;
+    align-self: center;
+    height: 100%;
+  }
+  .divider-svg {
+    position: absolute;
+    inset: 0;
+    height: 100%;
+  }
+  /* stroke via CSS : var() n'est pas fiable en attribut de présentation SVG */
+  .divider-line {
+    stroke: var(--ink-600);
+  }
+  .divider-vs {
+    position: relative;
+    background: var(--bg);
+    padding: 0.4rem 0;
+    font-style: italic;
+    color: var(--text-400);
+    font-size: 0.85rem;
+  }
+
+  @media (max-width: 860px) {
+    .solution__compare {
+      grid-template-columns: 1fr;
+    }
+    .compare-divider {
+      height: auto;
+      padding: 0.4rem 0;
+    }
+  }
+</style>

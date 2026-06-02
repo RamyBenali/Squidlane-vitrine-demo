@@ -1,0 +1,295 @@
+---
+// Barème dégressif. Bornes documentées : EUR 6% → 1% (3M€+) · USD 5% → 0,7% (3M$+).
+// Les paliers intermédiaires sont indicatifs et ajustés selon le profil marchand.
+const tiers = [
+  { vol: "< 10 K", eur: '6%', usd: '5%' },
+  { vol: '10 K – 50 K', eur: '4,5%', usd: '3,8%' },
+  { vol: '50 K – 250 K', eur: '3%', usd: '2,5%' },
+  { vol: '250 K – 1 M', eur: '2%', usd: '1,6%' },
+  { vol: '1 M – 3 M', eur: '1,4%', usd: '1,1%' },
+  { vol: '3 M +', eur: '1%', usd: '0,7%', best: true },
+];
+---
+
+<section class="section pricing" id="pricing">
+  <div class="grid-bg" style="opacity:.6"></div>
+  <div class="container">
+    <div class="pricing__head" data-reveal>
+      <span class="eyebrow">Tarifs</span>
+      <h2>Plus vous encaissez,<br /><span class="accent-word">moins vous payez.</span></h2>
+      <p class="muted">
+        Une tarification dégressive, basée sur votre volume mensuel. Pas d’abonnement,
+        pas de frais cachés — vous ne payez qu’en encaissant.
+      </p>
+
+      <div class="pricing__toggle" role="tablist" aria-label="Devise" data-reveal data-delay="0.1">
+        <button class="is-active" data-cur="eur" role="tab" aria-selected="true">EUR €</button>
+        <button data-cur="usd" role="tab" aria-selected="false">USD $</button>
+        <span class="pricing__toggle-pill" aria-hidden="true"></span>
+      </div>
+    </div>
+
+    <div class="pricing__panel card" data-reveal data-cur="eur">
+      <div class="pricing__hero">
+        <div class="pricing__rate">
+          <span class="muted">Commission dès</span>
+          <strong data-rate-min>6%</strong>
+          <span class="muted">dégressive jusqu’à <em data-rate-max>1%</em></span>
+        </div>
+        <div class="pricing__processing">
+          <span class="muted">+ frais de traitement</span>
+          <strong data-processing>1,5% + 0,25 €</strong>
+          <span class="muted">par transaction</span>
+        </div>
+      </div>
+
+      <div class="pricing__tiers" data-reveal-group>
+        {tiers.map((t) => (
+          <div class={`tier ${t.best ? 'tier--best' : ''}`} data-reveal-item>
+            <span class="tier__vol">{t.vol}<small> / mois</small></span>
+            <span class="tier__rate" data-eur={t.eur} data-usd={t.usd}>{t.eur}</span>
+            {t.best && <span class="tier__badge">Meilleur taux</span>}
+          </div>
+        ))}
+      </div>
+
+      <p class="pricing__note muted">
+        Devises de règlement : EUR ou USD. Vos clients peuvent payer dans la plupart des
+        grandes devises (conversion bancaire automatique). Paliers intermédiaires indicatifs,
+        ajustés selon votre activité.
+      </p>
+
+      <div class="pricing__cta">
+        <a href="#contact" class="btn btn--primary btn--lg" data-magnetic>Nous contacter</a>
+        <span class="muted">Réponse rapide après étude de votre dossier.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .pricing {
+    overflow: hidden;
+  }
+  .pricing__head {
+    text-align: center;
+    max-width: 660px;
+    margin: 0 auto clamp(2rem, 4vw, 3rem);
+  }
+  .pricing__head h2 {
+    font-size: var(--fs-h2);
+    margin-bottom: 1rem;
+  }
+  .pricing__head p {
+    font-size: var(--fs-lead);
+    max-width: 50ch;
+    margin-inline: auto;
+  }
+
+  .pricing__toggle {
+    position: relative;
+    display: inline-flex;
+    margin-top: 2rem;
+    padding: 5px;
+    border-radius: 999px;
+    background: var(--surface-2);
+    border: 1px solid var(--border-strong);
+  }
+  .pricing__toggle button {
+    position: relative;
+    z-index: 1;
+    padding: 0.6rem 1.6rem;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--text-300);
+    transition: color 0.3s var(--ease-out);
+  }
+  .pricing__toggle button.is-active {
+    color: var(--white);
+  }
+  .pricing__toggle-pill {
+    position: absolute;
+    z-index: 0;
+    top: 5px;
+    left: 5px;
+    width: calc(50% - 5px);
+    height: calc(100% - 10px);
+    border-radius: 999px;
+    background: linear-gradient(180deg, var(--indigo-500), var(--indigo-600));
+    box-shadow: 0 2px 8px -2px rgba(0, 0, 0, 0.4);
+    transition: transform 0.4s var(--ease-out);
+  }
+  .pricing__toggle[data-cur='usd'] .pricing__toggle-pill {
+    transform: translateX(100%);
+  }
+
+  .pricing__panel {
+    max-width: 900px;
+    margin-inline: auto;
+    padding: clamp(1.6rem, 4vw, 2.8rem);
+  }
+  .pricing__hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  .pricing__rate,
+  .pricing__processing {
+    padding: 1.5rem;
+    border-radius: var(--radius);
+    background: var(--ink-950);
+    border: 1px solid var(--border);
+  }
+  .pricing__rate {
+    background: var(--ink-900);
+    border: 1px solid var(--border);
+    border-top: 2px solid var(--indigo-500);
+  }
+  .pricing__rate span,
+  .pricing__processing span {
+    display: block;
+    font-size: 0.85rem;
+  }
+  .pricing__rate strong,
+  .pricing__processing strong {
+    display: block;
+    font-size: clamp(2rem, 5vw, 2.8rem);
+    font-weight: 800;
+    color: var(--text-100);
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    margin: 0.2rem 0;
+  }
+  .pricing__rate em {
+    font-style: normal;
+    color: var(--indigo-300);
+    font-weight: 600;
+  }
+  .pricing__processing strong {
+    font-size: clamp(1.5rem, 3.5vw, 2rem);
+    color: var(--text-200);
+  }
+
+  .pricing__tiers {
+    display: flex;
+    flex-direction: column;
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .tier {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.4rem;
+    border-bottom: 1px solid var(--border);
+    transition: background 0.3s var(--ease-out);
+  }
+  .tier:last-child {
+    border-bottom: none;
+  }
+  .tier:hover {
+    background: var(--surface);
+  }
+  .tier__vol {
+    flex: 1;
+    font-weight: 600;
+    color: var(--text-200);
+  }
+  .tier__vol small {
+    color: var(--text-400);
+    font-weight: 400;
+  }
+  .tier__rate {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--text-100);
+    font-variant-numeric: tabular-nums;
+    transition: color 0.3s var(--ease-out);
+  }
+  .tier--best {
+    position: relative;
+    background: var(--surface);
+  }
+  .tier--best::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: var(--indigo-500);
+  }
+  .tier--best .tier__rate {
+    color: var(--indigo-300);
+  }
+  .tier__badge {
+    background: none;
+    border: none;
+    padding: 0;
+    color: var(--indigo-300);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .pricing__note {
+    font-size: 0.85rem;
+    margin-top: 1.5rem;
+    line-height: 1.5;
+  }
+  .pricing__cta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1.8rem;
+  }
+  .pricing__cta .muted {
+    font-size: 0.88rem;
+  }
+
+  @media (max-width: 620px) {
+    .pricing__hero {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  const toggle = document.querySelector<HTMLElement>('.pricing__toggle');
+  const panel = document.querySelector<HTMLElement>('.pricing__panel');
+  const processing: Record<string, string> = {
+    eur: '1,5% + 0,25 €',
+    usd: '3,4% + 0,25 $',
+  };
+  const minRate: Record<string, string> = { eur: '6%', usd: '5%' };
+  const maxRate: Record<string, string> = { eur: '1%', usd: '0,7%' };
+
+  function setCurrency(cur: string) {
+    if (!toggle || !panel) return;
+    toggle.setAttribute('data-cur', cur);
+    panel.setAttribute('data-cur', cur);
+    toggle.querySelectorAll('button').forEach((b) => {
+      const active = b.getAttribute('data-cur') === cur;
+      b.classList.toggle('is-active', active);
+      b.setAttribute('aria-selected', String(active));
+    });
+    panel.querySelectorAll<HTMLElement>('.tier__rate').forEach((el) => {
+      el.textContent = el.dataset[cur] || '';
+    });
+    const p = panel.querySelector('[data-processing]');
+    const mn = panel.querySelector('[data-rate-min]');
+    const mx = panel.querySelector('[data-rate-max]');
+    if (p) p.textContent = processing[cur];
+    if (mn) mn.textContent = minRate[cur];
+    if (mx) mx.textContent = maxRate[cur];
+  }
+
+  toggle?.querySelectorAll('button').forEach((b) =>
+    b.addEventListener('click', () => setCurrency(b.getAttribute('data-cur') || 'eur'))
+  );
+</script>

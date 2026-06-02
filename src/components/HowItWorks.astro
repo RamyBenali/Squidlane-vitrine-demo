@@ -1,0 +1,174 @@
+---
+const steps = [
+  {
+    n: '01',
+    title: 'Candidatez',
+    text: 'On étudie votre activité. Cette sélection en amont est ce qui garantit votre stabilité ensuite.',
+  },
+  {
+    n: '02',
+    title: 'Intégrez',
+    text: 'Générez un lien de paiement, ou branchez le checkout à Shopify / WooCommerce. Quelques minutes suffisent.',
+  },
+  {
+    n: '03',
+    title: 'Encaissez',
+    text: 'Vos clients paient par carte bancaire ou Apple Pay, dans la devise de leur choix.',
+  },
+  {
+    n: '04',
+    title: 'Recevez vos fonds',
+    text: 'Versements réguliers et prévisibles, accélérés à mesure que votre historique grandit.',
+  },
+];
+---
+
+<section class="section how">
+  <div class="container">
+    <div class="how__grid">
+      <div class="how__intro" data-reveal>
+        <span class="eyebrow">Comment ça marche</span>
+        <h2>Opérationnel en<br /><span class="accent-word">quatre étapes.</span></h2>
+        <p class="muted">
+          SquidLane s’appuie sur un processeur de paiement aux certifications les plus
+          exigeantes du secteur. Vous bénéficiez d’une infrastructure de niveau bancaire,
+          sans la complexité.
+        </p>
+
+        <div class="how__partner" data-reveal data-delay="0.1">
+          <span class="how__partner-label">Sécurité &amp; conformité</span>
+          <div class="how__partner-row">
+            <span class="how__partner-name">3D&nbsp;Secure · PCI&nbsp;DSS niveau&nbsp;1 · RGPD</span>
+          </div>
+        </div>
+      </div>
+
+      <ol class="how__steps" data-reveal-group>
+        {steps.map((s) => (
+          <li class="how__step" data-reveal-item>
+            <span class="how__step-n">{s.n}</span>
+            <div>
+              <h3>{s.title}</h3>
+              <p class="muted">{s.text}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </div>
+</section>
+
+<style>
+  .how__grid {
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: clamp(2rem, 6vw, 5rem);
+    align-items: start;
+  }
+  .how__intro {
+    position: sticky;
+    top: 110px;
+  }
+  .how__intro h2 {
+    font-size: var(--fs-h2);
+    margin-bottom: 1.2rem;
+  }
+  .how__intro p {
+    font-size: var(--fs-lead);
+    max-width: 42ch;
+  }
+  .how__intro strong {
+    color: var(--text-100);
+    font-weight: 600;
+  }
+
+  .how__partner {
+    margin-top: 2rem;
+    padding: 1.2rem 1.4rem;
+    border-radius: var(--radius);
+    background: var(--ink-900);
+    border: 1px solid var(--border);
+  }
+  .how__partner-label {
+    display: block;
+    font-size: 0.74rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-400);
+    margin-bottom: 0.7rem;
+  }
+  .how__partner-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .how__partner-name {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--text-100);
+    letter-spacing: -0.01em;
+  }
+  .how__partner-tag {
+    background: none;
+    border: none;
+    padding: 0;
+    color: var(--cyan-400);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .how__steps {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    border-left: 1px solid var(--hairline);
+    padding-left: 2rem;
+  }
+  .how__step {
+    position: relative;
+    display: flex;
+    gap: 1.3rem;
+    padding: 1.5rem;
+  }
+  .how__step::before {
+    content: '';
+    position: absolute;
+    left: -2.55rem;
+    top: 0.4rem;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--indigo-500);
+    box-shadow: 0 0 0 4px var(--ink-950);
+  }
+  .how__step-n {
+    font-size: clamp(2.2rem, 4vw, 3.2rem);
+    font-weight: 800;
+    color: transparent;
+    -webkit-text-stroke: 1px var(--ink-600);
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+    flex-shrink: 0;
+    padding-top: 0.15rem;
+  }
+  .how__step h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.4rem;
+  }
+  .how__step p {
+    font-size: 0.95rem;
+  }
+
+  @media (max-width: 860px) {
+    .how__grid {
+      grid-template-columns: 1fr;
+    }
+    .how__intro {
+      position: static;
+    }
+  }
+</style>
