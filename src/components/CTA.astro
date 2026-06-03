@@ -1,31 +1,32 @@
 ---
 import Icon from './Icon.astro';
+import { getContent, TELEGRAM_URL, EMAIL, type Lang } from '../i18n/content';
 
-// Support SquidLane / Bonzai.
-const TELEGRAM_URL = 'https://t.me/VadimBonzai';
-const EMAIL = 'support@bonzai.pro';
+interface Props {
+  lang?: Lang;
+}
+const { lang = 'en' } = Astro.props;
+const t = getContent(lang).contact;
 ---
 
 <section class="section cta" id="contact">
   <div class="container">
     <div class="cta__box" data-reveal>
       <div class="cta__content">
-        <span class="eyebrow">Contact</span>
-        <h2>Passez à un partenaire<br /><span class="accent-word">qui joue dans votre camp.</span></h2>
-        <p class="cta__lead muted">
-          Parlez-nous de votre activité — on revient vers vous rapidement, avec un vrai
-          interlocuteur. Choisissez le canal qui vous convient.
-        </p>
+        <span class="eyebrow">{t.eyebrow}</span>
+        <h2>
+          {t.title.map((l, i) => (
+            <>
+              {'accent' in l ? <span class="accent-word">{l.text}</span> : l.text}
+              {i < t.title.length - 1 && <br />}
+            </>
+          ))}
+        </h2>
+        <p class="cta__lead muted">{t.lead}</p>
 
         <div class="cta__actions">
-          <a
-            href={TELEGRAM_URL}
-            target="_blank"
-            rel="noopener"
-            class="btn btn--primary btn--lg"
-            data-magnetic
-          >
-            <Icon name="telegram" size={18} /> Nous écrire sur Telegram
+          <a href={TELEGRAM_URL} target="_blank" rel="noopener" class="btn btn--primary btn--lg" data-magnetic>
+            <Icon name="telegram" size={18} /> {t.telegram}
           </a>
           <a href={`mailto:${EMAIL}`} class="btn btn--ghost btn--lg">
             <Icon name="mail" size={18} /> {EMAIL}

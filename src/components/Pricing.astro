@@ -1,28 +1,29 @@
 ---
-// Barème dégressif. Bornes documentées : EUR 6% → 1% (3M€+) · USD 5% → 0,7% (3M$+).
-// Les paliers intermédiaires sont indicatifs et ajustés selon le profil marchand.
-const tiers = [
-  { vol: "< 10 K", eur: '6%', usd: '5%' },
-  { vol: '10 K – 50 K', eur: '4,5%', usd: '3,8%' },
-  { vol: '50 K – 250 K', eur: '3%', usd: '2,5%' },
-  { vol: '250 K – 1 M', eur: '2%', usd: '1,6%' },
-  { vol: '1 M – 3 M', eur: '1,4%', usd: '1,1%' },
-  { vol: '3 M +', eur: '1%', usd: '0,7%', best: true },
-];
+import { getContent, eurTiers, usdTiers, type Lang } from '../i18n/content';
+
+interface Props {
+  lang?: Lang;
+}
+const { lang = 'en' } = Astro.props;
+const t = getContent(lang).pricing;
 ---
 
 <section class="section pricing" id="pricing">
   <div class="grid-bg" style="opacity:.6"></div>
   <div class="container">
     <div class="pricing__head" data-reveal>
-      <span class="eyebrow">Tarifs</span>
-      <h2>Plus vous encaissez,<br /><span class="accent-word">moins vous payez.</span></h2>
-      <p class="muted">
-        Une tarification dégressive, basée sur votre volume mensuel. Pas d’abonnement,
-        pas de frais cachés — vous ne payez qu’en encaissant.
-      </p>
+      <span class="eyebrow">{t.eyebrow}</span>
+      <h2>
+        {t.title.map((l, i) => (
+          <>
+            {'accent' in l ? <span class="accent-word">{l.text}</span> : l.text}
+            {i < t.title.length - 1 && <br />}
+          </>
+        ))}
+      </h2>
+      <p class="muted">{t.lead}</p>
 
-      <div class="pricing__toggle" role="tablist" aria-label="Devise" data-reveal data-delay="0.1">
+      <div class="pricing__toggle" role="tablist" aria-label="Currency" data-reveal data-delay="0.1">
         <button class="is-active" data-cur="eur" role="tab" aria-selected="true">EUR €</button>
         <button data-cur="usd" role="tab" aria-selected="false">USD $</button>
         <span class="pricing__toggle-pill" aria-hidden="true"></span>
@@ -32,36 +33,41 @@ const tiers = [
     <div class="pricing__panel card" data-reveal data-cur="eur">
       <div class="pricing__hero">
         <div class="pricing__rate">
-          <span class="muted">Commission dès</span>
-          <strong data-rate-min>6%</strong>
-          <span class="muted">dégressive jusqu’à <em data-rate-max>1%</em></span>
+          <span class="muted">{t.rateFromLabel}</span>
+          <strong data-rate-min data-eur={t.rateMin.eur} data-usd={t.rateMin.usd}>{t.rateMin.eur}</strong>
+          <span class="muted">{t.rateDownTo} <em data-rate-max data-eur={t.rateMax.eur} data-usd={t.rateMax.usd}>{t.rateMax.eur}</em></span>
         </div>
         <div class="pricing__processing">
-          <span class="muted">+ frais de traitement</span>
-          <strong data-processing>1,5% + 0,25 €</strong>
-          <span class="muted">par transaction</span>
+          <span class="muted">{t.processingLabel}</span>
+          <strong data-processing data-eur={t.processing.eur} data-usd={t.processing.usd}>{t.processing.eur}</strong>
+          <span class="muted">{t.processingPer}</span>
         </div>
       </div>
 
       <div class="pricing__tiers" data-reveal-group>
-        {tiers.map((t) => (
-          <div class={`tier ${t.best ? 'tier--best' : ''}`} data-reveal-item>
-            <span class="tier__vol">{t.vol}<small> / mois</small></span>
-            <span class="tier__rate" data-eur={t.eur} data-usd={t.usd}>{t.eur}</span>
-            {t.best && <span class="tier__badge">Meilleur taux</span>}
-          </div>
-        ))}
+        {
+          eurTiers.map((tier, i) => (
+            <div class:list={['tier', { 'tier--best': tier.best }]} data-reveal-item>
+              <span class="tier__vol">
+                <span class="tier__vol-val" data-eur={eurTiers[i].vol} data-usd={usdTiers[i].vol}>
+                  {eurTiers[i].vol}
+                </span>
+                <small> {t.volSuffix}</small>
+              </span>
+              <span class="tier__rate" data-eur={eurTiers[i].fee} data-usd={usdTiers[i].fee}>
+                {eurTiers[i].fee}
+              </span>
+              {tier.best && <span class="tier__badge">{t.bestBadge}</span>}
+            </div>
+          ))
+        }
       </div>
 
-      <p class="pricing__note muted">
-        Devises de règlement : EUR ou USD. Vos clients peuvent payer dans la plupart des
-        grandes devises (conversion bancaire automatique). Paliers intermédiaires indicatifs,
-        ajustés selon votre activité.
-      </p>
+      <p class="pricing__note muted">{t.note}</p>
 
       <div class="pricing__cta">
-        <a href="#contact" class="btn btn--primary btn--lg" data-magnetic>Nous contacter</a>
-        <span class="muted">Réponse rapide après étude de votre dossier.</span>
+        <a href="#contact" class="btn btn--primary btn--lg" data-magnetic>{t.cta}</a>
+        <span class="muted">{t.ctaNote}</span>
       </div>
     </div>
   </div>
@@ -183,7 +189,7 @@ const tiers = [
     display: flex;
     align-items: center;
     gap: 1rem;
-    padding: 1rem 1.4rem;
+    padding: 0.95rem 1.4rem;
     border-bottom: 1px solid var(--border);
     transition: background 0.3s var(--ease-out);
   }
@@ -203,7 +209,7 @@ const tiers = [
     font-weight: 400;
   }
   .tier__rate {
-    font-size: 1.3rem;
+    font-size: 1.25rem;
     font-weight: 800;
     color: var(--text-100);
     font-variant-numeric: tabular-nums;
@@ -262,12 +268,6 @@ const tiers = [
 <script>
   const toggle = document.querySelector<HTMLElement>('.pricing__toggle');
   const panel = document.querySelector<HTMLElement>('.pricing__panel');
-  const processing: Record<string, string> = {
-    eur: '1,5% + 0,25 €',
-    usd: '3,4% + 0,25 $',
-  };
-  const minRate: Record<string, string> = { eur: '6%', usd: '5%' };
-  const maxRate: Record<string, string> = { eur: '1%', usd: '0,7%' };
 
   function setCurrency(cur: string) {
     if (!toggle || !panel) return;
@@ -278,15 +278,11 @@ const tiers = [
       b.classList.toggle('is-active', active);
       b.setAttribute('aria-selected', String(active));
     });
-    panel.querySelectorAll<HTMLElement>('.tier__rate').forEach((el) => {
-      el.textContent = el.dataset[cur] || '';
+    // Tous les éléments porteurs de data-eur / data-usd se mettent à jour.
+    panel.querySelectorAll<HTMLElement>('[data-eur][data-usd]').forEach((el) => {
+      const val = el.dataset[cur];
+      if (val != null) el.textContent = val;
     });
-    const p = panel.querySelector('[data-processing]');
-    const mn = panel.querySelector('[data-rate-min]');
-    const mx = panel.querySelector('[data-rate-max]');
-    if (p) p.textContent = processing[cur];
-    if (mn) mn.textContent = minRate[cur];
-    if (mx) mx.textContent = maxRate[cur];
   }
 
   toggle?.querySelectorAll('button').forEach((b) =>

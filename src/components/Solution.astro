@@ -1,60 +1,34 @@
 ---
 import Icon from './Icon.astro';
+import { getContent, type Lang } from '../i18n/content';
 
-const pains = [
-  {
-    icon: 'frost',
-    title: 'Fonds gelés du jour au lendemain',
-    text: 'Un pic de ventes, un litige, et votre trésorerie est bloquée sans explication.',
-  },
-  {
-    icon: 'ban',
-    title: 'Comptes suspendus sans préavis',
-    text: 'Les processeurs grand public ferment d’abord, discutent ensuite. Parfois jamais.',
-  },
-  {
-    icon: 'bot',
-    title: 'Support robotisé',
-    text: 'Des tickets sans fin, des réponses automatiques, zéro interlocuteur réel.',
-  },
-];
-
-const gains = [
-  {
-    icon: 'shieldCheck',
-    title: 'Vos revenus protégés',
-    text: 'Pas de suspensions surprises ni de fonds gelés — garanti après approbation de votre compte.',
-  },
-  {
-    icon: 'userRound',
-    title: 'Un vrai interlocuteur',
-    text: 'Un support humain qui connaît votre activité et vous répond vraiment.',
-  },
-  {
-    icon: 'badgeCheck',
-    title: 'Une sélection à l’entrée',
-    text: 'On valide votre activité en amont. Résultat : de la stabilité, pas des coupures.',
-  },
-];
+interface Props {
+  lang?: Lang;
+}
+const { lang = 'en' } = Astro.props;
+const t = getContent(lang).why;
+const pains = t.pains;
+const gains = t.gains;
 ---
 
-<section class="section solution" id="solution">
+<section class="section solution" id="why">
   <div class="container">
     <div class="solution__head" data-reveal>
-      <span class="eyebrow">Le problème</span>
+      <span class="eyebrow">{t.eyebrow}</span>
       <h2 class="solution__title">
-        Vous vendez sérieusement.<br />
-        <span class="accent-word">Votre processeur devrait suivre.</span>
+        {t.title.map((l, i) => (
+          <>
+            {'accent' in l ? <span class="accent-word">{l.text}</span> : l.text}
+            {i < t.title.length - 1 && <br />}
+          </>
+        ))}
       </h2>
-      <p class="solution__lead muted">
-        Stripe, Shopify Payments &amp; co sont pensés pour le volume de masse — pas pour
-        protéger un marchand qui scale. SquidLane inverse la logique.
-      </p>
+      <p class="solution__lead muted">{t.lead}</p>
     </div>
 
     <div class="solution__compare">
       <div class="compare-col compare-col--pain" data-reveal-group>
-        <span class="compare-col__tag compare-col__tag--bad">Ailleurs</span>
+        <span class="compare-col__tag compare-col__tag--bad">{t.painsTag}</span>
         {pains.map((p) => (
           <div class="compare-card" data-reveal-item>
             <span class="compare-card__icon"><Icon name={p.icon} size={20} /></span>
@@ -74,7 +48,7 @@ const gains = [
       </div>
 
       <div class="compare-col compare-col--gain" data-reveal-group>
-        <span class="compare-col__tag compare-col__tag--good">Avec SquidLane</span>
+        <span class="compare-col__tag compare-col__tag--good">{t.gainsTag}</span>
         {gains.map((g) => (
           <div class="compare-card compare-card--good" data-reveal-item>
             <span class="compare-card__icon"><Icon name={g.icon} size={20} /></span>

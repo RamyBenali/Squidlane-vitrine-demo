@@ -1,15 +1,11 @@
 ---
-const items = [
-  'Liens de paiement instantanés',
-  'Checkout sur-mesure',
-  'Shopify',
-  'WooCommerce',
-  'Apple Pay',
-  'Cartes bancaires',
-  'Support humain',
-  'Zéro fonds gelé',
-  'Versements rapides',
-];
+import { getContent, type Lang } from '../i18n/content';
+
+interface Props {
+  lang?: Lang;
+}
+const { lang = 'en' } = Astro.props;
+const items = getContent(lang).marquee;
 ---
 
 <section class="marquee" aria-hidden="true">

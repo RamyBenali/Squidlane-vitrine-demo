@@ -1,19 +1,17 @@
 ---
 import '../styles/global.scss';
+import { getContent, type Lang } from '../i18n/content';
 
 interface Props {
-  title?: string;
-  description?: string;
+  lang?: Lang;
 }
-
-const {
-  title = 'SquidLane — La passerelle de paiement pensée pour les marchands sérieux',
-  description = "SquidLane est le processeur de paiement sélectif qui protège vos revenus : liens de paiement instantanés, checkout sur-mesure, support humain. Pas de suspensions surprises, pas de fonds gelés.",
-} = Astro.props;
+const { lang = 'en' } = Astro.props;
+const t = getContent(lang);
+const { title, description } = t.meta;
 ---
 
 <!doctype html>
-<html lang="fr" class="no-js">
+<html lang={lang} class="no-js">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -30,7 +28,7 @@ const {
     <meta property="og:description" content={description} />
     <meta property="og:image" content="/og.svg" />
 
-    <!-- Fonts: Inter (charte SquidLane) -->
+    <!-- Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link

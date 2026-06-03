@@ -1,34 +1,63 @@
 ---
 import Logo from './Logo.astro';
+import { getContent, languages, type Lang } from '../i18n/content';
 
-const links = [
-  { label: 'Solution', href: '#solution' },
-  { label: 'Fonctionnalités', href: '#features' },
-  { label: 'Tarifs', href: '#pricing' },
-  { label: 'Versements', href: '#payouts' },
-];
+interface Props {
+  lang?: Lang;
+}
+const { lang = 'en' } = Astro.props;
+const t = getContent(lang).nav;
+
+const langHref: Record<Lang, string> = { en: '/', fr: '/fr/' };
 ---
 
 <header class="nav" data-nav>
   <div class="container nav__inner">
     <Logo />
 
-    <nav class="nav__links" aria-label="Navigation principale">
-      {links.map((l) => <a href={l.href}>{l.label}</a>)}
+    <nav class="nav__links" aria-label="Navigation">
+      {t.links.map((l) => <a href={l.href}>{l.label}</a>)}
     </nav>
 
     <div class="nav__actions">
-      <a href="#contact" class="btn btn--primary" data-magnetic>Nous contacter</a>
+      <div class="nav__lang" role="group" aria-label="Language">
+        {
+          (Object.keys(languages) as Lang[]).map((code) => (
+            <a
+              href={langHref[code]}
+              class:list={['nav__lang-btn', { 'is-active': code === lang }]}
+              aria-current={code === lang ? 'true' : undefined}
+            >
+              {languages[code]}
+            </a>
+          ))
+        }
+      </div>
+      <a href="#contact" class="btn btn--primary" data-magnetic>{t.cta}</a>
     </div>
 
-    <button class="nav__burger" aria-label="Ouvrir le menu" data-burger>
+    <button class="nav__burger" aria-label="Menu" data-burger>
       <span></span><span></span>
     </button>
   </div>
 
   <div class="nav__mobile" data-mobile-menu>
-    {links.map((l) => <a href={l.href}>{l.label}</a>)}
-    <a href="#contact" class="btn btn--primary">Nous contacter</a>
+    {t.links.map((l) => <a href={l.href}>{l.label}</a>)}
+    <div class="nav__mobile-foot">
+      <div class="nav__lang">
+        {
+          (Object.keys(languages) as Lang[]).map((code) => (
+            <a
+              href={langHref[code]}
+              class:list={['nav__lang-btn', { 'is-active': code === lang }]}
+            >
+              {languages[code]}
+            </a>
+          ))
+        }
+      </div>
+      <a href="#contact" class="btn btn--primary">{t.cta}</a>
+    </div>
   </div>
 </header>
 
@@ -88,13 +117,28 @@ const links = [
     align-items: center;
     gap: 1rem;
   }
-  .nav__login {
-    font-size: 0.95rem;
-    font-weight: 500;
-    color: var(--text-200);
-    transition: color 0.25s var(--ease-out);
+  .nav__lang {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.15rem;
+    padding: 3px;
+    border-radius: 999px;
+    background: var(--surface-2);
+    border: 1px solid var(--border-strong);
   }
-  .nav__login:hover {
+  .nav__lang-btn {
+    padding: 0.3rem 0.6rem;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--text-400);
+    transition: color 0.25s var(--ease-out), background 0.25s var(--ease-out);
+  }
+  .nav__lang-btn.is-active {
+    color: var(--white);
+    background: linear-gradient(180deg, var(--pink-500), var(--pink-600));
+  }
+  .nav__lang-btn:not(.is-active):hover {
     color: var(--text-100);
   }
   .nav__burger {
@@ -114,7 +158,7 @@ const links = [
     transform: translateY(7px) rotate(45deg);
   }
   .nav.is-open .nav__burger span:last-child {
-    transform: translateY(-0px) rotate(-45deg);
+    transform: rotate(-45deg);
   }
   .nav__mobile {
     display: none;
@@ -125,14 +169,18 @@ const links = [
     backdrop-filter: blur(16px);
     border-bottom: 1px solid var(--border);
   }
-  .nav__mobile a:not(.btn) {
+  .nav__mobile a:not(.btn):not(.nav__lang-btn) {
     padding: 0.85rem 0.25rem;
     color: var(--text-200);
-    border-bottom: 1px solid var(--hairline);
+    border-bottom: 1px solid var(--border);
     font-weight: 500;
   }
-  .nav__mobile .btn {
-    margin-top: 0.8rem;
+  .nav__mobile-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 1rem;
   }
   .nav.is-open .nav__mobile {
     display: flex;

@@ -1,49 +1,51 @@
 ---
 import Icon from './Icon.astro';
 import PaymentMarks from './PaymentMarks.astro';
+import { getContent, CHECKOUT_DEMO, type Lang } from '../i18n/content';
+
+interface Props {
+  lang?: Lang;
+}
+const { lang = 'en' } = Astro.props;
+const t = getContent(lang).features;
 ---
 
 <section class="section features" id="features">
   <div class="container">
     <div class="features__head" data-reveal>
-      <span class="eyebrow">La solution</span>
-      <h2>Tout pour encaisser,<br /><span class="accent-word">rien pour vous freiner.</span></h2>
-      <p class="muted">
-        Une plateforme complète : du lien de paiement créé en quelques secondes au
-        checkout intégré à votre boutique.
-      </p>
+      <span class="eyebrow">{t.eyebrow}</span>
+      <h2>
+        {t.title.map((l, i) => (
+          <>
+            {'accent' in l ? <span class="accent-word">{l.text}</span> : l.text}
+            {i < t.title.length - 1 && <br />}
+          </>
+        ))}
+      </h2>
+      <p class="muted">{t.lead}</p>
     </div>
 
     <div class="bento" data-reveal-group>
       <!-- Carte large : liens de paiement -->
       <article class="bento__card bento__card--wide" data-reveal-item>
         <div class="bento__icon"><Icon name="link" size={22} /></div>
-        <h3>Liens de paiement instantanés</h3>
-        <p class="muted">
-          Créez un lien de paiement sécurisé et partageable en quelques secondes depuis
-          votre tableau de bord. Envoyez-le, encaissez, suivez le paiement en temps réel.
-        </p>
+        <h3>{t.linkTitle}</h3>
+        <p class="muted">{t.linkText}</p>
         <div class="bento__demo">
           <code>theclub.squidlane.com/buy/<span>offr_fv9_Sn8npo</span></code>
-          <button class="bento__copy" data-copy="https://theclub.squidlane.com/buy/offr_fv9_Sn8npo"><Icon name="copy" size={14} />Copier</button>
+          <button class="bento__copy" data-copy={CHECKOUT_DEMO} data-copied={t.copied}>
+            <Icon name="copy" size={14} />{t.copy}
+          </button>
         </div>
       </article>
 
       <!-- Checkout custom -->
       <article class="bento__card" data-reveal-item>
         <div class="bento__icon"><Icon name="cart" size={22} /></div>
-        <h3>Checkout sur-mesure</h3>
-        <p class="muted">
-          Intégration personnalisable pour Shopify et WooCommerce. Vos couleurs, votre
-          marque, notre infrastructure.
-        </p>
-        <a
-          href="https://theclub.squidlane.com/buy/offr_fv9_Sn8npo"
-          target="_blank"
-          rel="noopener"
-          class="bento__link"
-        >
-          Voir un exemple de checkout
+        <h3>{t.checkoutTitle}</h3>
+        <p class="muted">{t.checkoutText}</p>
+        <a href={CHECKOUT_DEMO} target="_blank" rel="noopener" class="bento__link">
+          {t.seeCheckout}
           <Icon name="arrowRight" size={15} />
         </a>
       </article>
@@ -51,38 +53,30 @@ import PaymentMarks from './PaymentMarks.astro';
       <!-- Moyens de paiement -->
       <article class="bento__card" data-reveal-item>
         <div class="bento__icon"><Icon name="card" size={22} /></div>
-        <h3>Paiement par carte</h3>
-        <p class="muted">Visa, Mastercard, American Express et Apple Pay.</p>
+        <h3>{t.methodsTitle}</h3>
+        <p class="muted">{t.methodsText}</p>
         <PaymentMarks brands={['visa', 'mastercard', 'amex', 'applepay']} />
       </article>
 
       <!-- Multi-devises -->
       <article class="bento__card" data-reveal-item>
         <div class="bento__icon"><Icon name="globe" size={22} /></div>
-        <h3>EUR, USD &amp; au-delà</h3>
-        <p class="muted">
-          Règlement en EUR ou USD. Vos clients paient dans la plupart des grandes devises,
-          conversion bancaire automatique.
-        </p>
+        <h3>{t.currenciesTitle}</h3>
+        <p class="muted">{t.currenciesText}</p>
       </article>
 
       <!-- Gestion marchand -->
       <article class="bento__card" data-reveal-item>
         <div class="bento__icon"><Icon name="dash" size={22} /></div>
-        <h3>Gestion marchand</h3>
-        <p class="muted">
-          Un tableau de bord clair pour piloter vos paiements, clients et versements.
-        </p>
+        <h3>{t.manageTitle}</h3>
+        <p class="muted">{t.manageText}</p>
       </article>
 
       <!-- Protection (large) -->
       <article class="bento__card bento__card--accent bento__card--wide" data-reveal-item>
         <div class="bento__icon"><Icon name="shieldCheck" size={22} /></div>
-        <h3>Protection garantie après approbation</h3>
-        <p class="muted">
-          Pas de suspensions inattendues, pas de fonds gelés. Une fois votre compte
-          approuvé, vous encaissez l’esprit tranquille — avec un support humain à vos côtés.
-        </p>
+        <h3>{t.protectTitle}</h3>
+        <p class="muted">{t.protectText}</p>
       </article>
     </div>
   </div>

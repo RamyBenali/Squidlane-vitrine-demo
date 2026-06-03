@@ -222,14 +222,17 @@ function initHeroTimeline() {
 function animatePaycardValue() {
   const el = document.querySelector<HTMLElement>('.paycard__value');
   if (!el) return;
+  const target = parseFloat(el.dataset.amount || '1280');
+  const currency = el.dataset.currency || 'EUR';
+  const locale = el.dataset.locale === 'fr' ? 'fr-FR' : 'en-US';
+  const fmt = new Intl.NumberFormat(locale, { style: 'currency', currency });
   const obj = { v: 0 };
   gsap.to(obj, {
-    v: 1280,
+    v: target,
     duration: 1.4,
     ease: 'power2.out',
     onUpdate: () => {
-      el.textContent =
-        obj.v.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
+      el.textContent = fmt.format(obj.v);
     },
   });
 }
@@ -388,7 +391,7 @@ function initClipboard() {
         /* ignore */
       }
       const original = btn.innerHTML;
-      btn.textContent = 'Copié';
+      btn.textContent = btn.dataset.copied || 'Copied';
       btn.classList.add('is-copied');
       window.setTimeout(() => {
         btn.innerHTML = original;

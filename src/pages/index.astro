@@ -10,19 +10,21 @@ import Pricing from '../components/Pricing.astro';
 import Payouts from '../components/Payouts.astro';
 import CTA from '../components/CTA.astro';
 import Footer from '../components/Footer.astro';
+
+const lang = 'en' as const;
 ---
 
-<Layout>
-  <Nav />
+<Layout lang={lang}>
+  <Nav lang={lang} />
   <main>
-    <Hero />
-    <Marquee />
-    <Solution />
-    <Features />
-    <HowItWorks />
-    <Pricing />
-    <Payouts />
-    <CTA />
+    <Hero lang={lang} />
+    <Marquee lang={lang} />
+    <Solution lang={lang} />
+    <Features lang={lang} />
+    <HowItWorks lang={lang} />
+    <Pricing lang={lang} />
+    <Payouts lang={lang} />
+    <CTA lang={lang} />
   </main>
-  <Footer />
+  <Footer lang={lang} />
 </Layout>

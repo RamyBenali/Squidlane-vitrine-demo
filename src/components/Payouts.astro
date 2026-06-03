@@ -1,75 +1,70 @@
 ---
 import Icon from './Icon.astro';
+import { getContent, type Lang } from '../i18n/content';
 
-const tracks = [
-  {
-    label: 'SaaS & produits digitaux',
-    icon: 'monitor',
-    steps: [
-      { when: 'Au démarrage', delay: 7, note: 'Versements gratuits' },
-      { when: 'Après 1 mois', delay: 5, note: 'Négociable selon activité', best: true },
-    ],
-  },
-  {
-    label: 'E-commerce',
-    icon: 'package',
-    steps: [
-      { when: 'Après 15 jours', delay: 5, note: 'Versements gratuits' },
-      { when: 'Après 1 mois', delay: 3, note: 'Versements gratuits', best: true },
-    ],
-  },
-];
+interface Props {
+  lang?: Lang;
+}
+const { lang = 'en' } = Astro.props;
+const t = getContent(lang).payouts;
 ---
 
 <section class="section payouts" id="payouts">
   <div class="container">
     <div class="payouts__head" data-reveal>
-      <span class="eyebrow">Versements</span>
-      <h2>Votre trésorerie,<br /><span class="accent-word">de plus en plus rapide.</span></h2>
-      <p class="muted">
-        Des versements gratuits et prévisibles, qui s’accélèrent à mesure que votre
-        historique se construit. Besoin de vos fonds tout de suite&nbsp;?
-        Le retrait express est là.
-      </p>
+      <span class="eyebrow">{t.eyebrow}</span>
+      <h2>
+        {t.title.map((l, i) => (
+          <>
+            {'accent' in l ? <span class="accent-word">{l.text}</span> : l.text}
+            {i < t.title.length - 1 && <br />}
+          </>
+        ))}
+      </h2>
+      <p class="muted">{t.lead}</p>
     </div>
 
     <div class="payouts__grid" data-reveal-group>
-      {tracks.map((track) => (
-        <article class="track" data-reveal-item>
-          <header class="track__head">
-            <span class="track__icon"><Icon name={track.icon} /></span>
-            <h3>{track.label}</h3>
-          </header>
-          <div class="track__line">
-            <svg class="track__svg" width="2" height="100%" viewBox="0 0 2 100" preserveAspectRatio="none" aria-hidden="true">
-              <path class="track__path" d="M1 0 V100" stroke="var(--indigo-500)" stroke-width="2" fill="none"/>
-            </svg>
-            {track.steps.map((s) => (
-              <div class={`milestone ${s.best ? 'milestone--best' : ''}`}>
-                <span class="milestone__dot"></span>
-                <span class="milestone__when muted">{s.when}</span>
-                <span class="milestone__delay" data-count={s.delay} data-suffix=" jours">{s.delay} jours</span>
-                <span class="milestone__note muted">{s.note}</span>
-              </div>
-            ))}
-          </div>
-        </article>
-      ))}
-
-      <article class="track track--express" data-reveal-item>
-        <header class="track__head">
-          <span class="track__icon track__icon--express"><Icon name="zap" /></span>
-          <h3>Retrait express</h3>
-        </header>
-        <p class="track__express-text">
-          Besoin de liquidités immédiatement&nbsp;? Déclenchez un versement instantané à tout
-          moment.
-        </p>
-        <div class="track__express-fee">
-          <strong data-count="1" data-suffix="%">1%</strong>
-          <span class="muted">de frais sur le montant retiré</span>
-        </div>
-      </article>
+      {
+        t.tracks.map((track) => (
+          <article class="track" data-reveal-item>
+            <header class="track__head">
+              <span class="track__icon">
+                <Icon name={track.icon} />
+              </span>
+              <h3>{track.label}</h3>
+            </header>
+            <div class="track__line">
+              <svg
+                class="track__svg"
+                width="2"
+                height="100%"
+                viewBox="0 0 2 100"
+                preserveAspectRatio="none"
+                aria-hidden="true"
+              >
+                <path class="track__path" d="M1 0 V100" stroke-width="2" fill="none" />
+              </svg>
+              {track.steps.map((s) => (
+                <div
+                  class:list={[
+                    'milestone',
+                    { 'milestone--best': 'best' in s, 'milestone--express': 'express' in s },
+                  ]}
+                >
+                  <span class="milestone__dot" />
+                  <span class="milestone__when muted">{s.when}</span>
+                  <span class="milestone__delay" data-count={s.n} data-suffix={t.daysUnit}>
+                    {s.n}
+                    {t.daysUnit}
+                  </span>
+                  <span class="milestone__note muted">{s.note}</span>
+                </div>
+              ))}
+            </div>
+          </article>
+        ))
+      }
     </div>
   </div>
 </section>
@@ -89,7 +84,7 @@ const tracks = [
 
   .payouts__grid {
     display: grid;
-    grid-template-columns: 1fr 1fr 0.85fr;
+    grid-template-columns: repeat(2, 1fr);
     gap: 1.1rem;
   }
   .track {
@@ -107,14 +102,11 @@ const tracks = [
     display: flex;
     align-items: center;
     gap: 0.7rem;
-    margin-bottom: 1.6rem;
+    margin-bottom: 1.8rem;
   }
   .track__icon {
     display: inline-flex;
     color: var(--indigo-400);
-  }
-  .track__icon--express {
-    color: var(--cyan-400);
   }
   .track__head h3 {
     font-size: var(--fs-h3);
@@ -124,7 +116,7 @@ const tracks = [
     position: relative;
     display: flex;
     flex-direction: column;
-    gap: 1.6rem;
+    gap: 1.5rem;
     padding-left: 1.4rem;
   }
   .track__svg {
@@ -157,6 +149,10 @@ const tracks = [
     background: var(--indigo-500);
     box-shadow: 0 0 0 5px rgba(236, 45, 136, 0.18);
   }
+  .milestone--express .milestone__dot {
+    background: var(--cyan-500);
+    border-color: var(--cyan-500);
+  }
   .milestone__when {
     font-size: 0.78rem;
     letter-spacing: 0.04em;
@@ -172,38 +168,15 @@ const tracks = [
   .milestone--best .milestone__delay {
     color: var(--indigo-300);
   }
+  .milestone--express .milestone__delay {
+    color: var(--cyan-400);
+  }
   .milestone__note {
     font-size: 0.85rem;
     color: var(--text-300);
   }
 
-  .track--express {
-    background: var(--ink-850);
-    border: 1px solid var(--border);
-    border-left: 2px solid var(--cyan-500);
-    display: flex;
-    flex-direction: column;
-  }
-  .track__express-text {
-    font-size: 0.95rem;
-    color: var(--text-300);
-    margin-bottom: auto;
-  }
-  .track__express-fee {
-    margin-top: 1.4rem;
-  }
-  .track__express-fee strong {
-    display: block;
-    font-size: 2.6rem;
-    font-weight: 800;
-    color: var(--cyan-400);
-    letter-spacing: -0.03em;
-  }
-  .track__express-fee span {
-    font-size: 0.88rem;
-  }
-
-  @media (max-width: 860px) {
+  @media (max-width: 720px) {
     .payouts__grid {
       grid-template-columns: 1fr;
     }

@@ -1,44 +1,33 @@
 ---
-const steps = [
-  {
-    n: '01',
-    title: 'Candidatez',
-    text: 'On étudie votre activité. Cette sélection en amont est ce qui garantit votre stabilité ensuite.',
-  },
-  {
-    n: '02',
-    title: 'Intégrez',
-    text: 'Générez un lien de paiement, ou branchez le checkout à Shopify / WooCommerce. Quelques minutes suffisent.',
-  },
-  {
-    n: '03',
-    title: 'Encaissez',
-    text: 'Vos clients paient par carte bancaire ou Apple Pay, dans la devise de leur choix.',
-  },
-  {
-    n: '04',
-    title: 'Recevez vos fonds',
-    text: 'Versements réguliers et prévisibles, accélérés à mesure que votre historique grandit.',
-  },
-];
+import { getContent, type Lang } from '../i18n/content';
+
+interface Props {
+  lang?: Lang;
+}
+const { lang = 'en' } = Astro.props;
+const t = getContent(lang).how;
+const steps = t.steps;
 ---
 
-<section class="section how">
+<section class="section how" id="how">
   <div class="container">
     <div class="how__grid">
       <div class="how__intro" data-reveal>
-        <span class="eyebrow">Comment ça marche</span>
-        <h2>Opérationnel en<br /><span class="accent-word">quatre étapes.</span></h2>
-        <p class="muted">
-          SquidLane s’appuie sur un processeur de paiement aux certifications les plus
-          exigeantes du secteur. Vous bénéficiez d’une infrastructure de niveau bancaire,
-          sans la complexité.
-        </p>
+        <span class="eyebrow">{t.eyebrow}</span>
+        <h2>
+          {t.title.map((l, i) => (
+            <>
+              {'accent' in l ? <span class="accent-word">{l.text}</span> : l.text}
+              {i < t.title.length - 1 && <br />}
+            </>
+          ))}
+        </h2>
+        <p class="muted">{t.lead}</p>
 
         <div class="how__partner" data-reveal data-delay="0.1">
-          <span class="how__partner-label">Sécurité &amp; conformité</span>
+          <span class="how__partner-label">{t.partnerLabel}</span>
           <div class="how__partner-row">
-            <span class="how__partner-name">3D&nbsp;Secure · PCI&nbsp;DSS niveau&nbsp;1 · RGPD</span>
+            <span class="how__partner-name">{t.partnerValue}</span>
           </div>
         </div>
       </div>

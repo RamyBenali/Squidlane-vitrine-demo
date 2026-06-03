@@ -1,23 +1,20 @@
 ---
 import Icon from './Icon.astro';
+import { getContent, type Lang } from '../i18n/content';
 
 interface Props {
+  lang?: Lang;
   class?: string;
 }
-const { class: className = '' } = Astro.props;
-
-const seals = [
-  { icon: 'shieldCheck', label: '3D Secure', caption: 'Authentification forte' },
-  { icon: 'lock', label: 'PCI DSS', caption: 'Niveau 1' },
-  { icon: 'badgeCheck', label: 'RGPD', caption: 'Conforme' },
-];
+const { lang = 'en', class: className = '' } = Astro.props;
+const t = getContent(lang).security;
 ---
 
 <div class:list={['seals', className]}>
-  <span class="seals__label">Sécurité de niveau bancaire</span>
-  <ul class="seals__row" aria-label="Certifications de sécurité et de conformité">
+  <span class="seals__label">{t.label}</span>
+  <ul class="seals__row" aria-label={t.label}>
     {
-      seals.map((s) => (
+      t.seals.map((s) => (
         <li class="seal">
           <span class="seal__emblem">
             <Icon name={s.icon} size={20} />

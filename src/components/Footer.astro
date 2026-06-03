@@ -1,25 +1,13 @@
 ---
 import Logo from './Logo.astro';
+import { getContent, type Lang } from '../i18n/content';
 
-const cols = [
-  {
-    title: 'Produit',
-    links: [
-      { label: 'Liens de paiement', href: '#features' },
-      { label: 'Checkout', href: '#features' },
-      { label: 'Tarifs', href: '#pricing' },
-      { label: 'Versements', href: '#payouts' },
-    ],
-  },
-  {
-    title: 'Entreprise',
-    links: [
-      { label: 'À propos', href: '#' },
-      { label: 'Contact', href: '#contact' },
-    ],
-  },
-];
-const year = new Date().getFullYear();
+interface Props {
+  lang?: Lang;
+}
+const { lang = 'en' } = Astro.props;
+const t = getContent(lang).footer;
+const year = 2026;
 ---
 
 <footer class="footer">
@@ -27,21 +15,15 @@ const year = new Date().getFullYear();
     <div class="footer__top">
       <div class="footer__brand">
         <Logo />
-        <p class="muted">
-          Le processeur de paiement sélectif pour les marchands sérieux. Encaissez sans
-          craindre le gel de vos fonds.
-        </p>
+        <p class="muted">{t.tagline}</p>
         <div class="footer__partner">
-          <span class="footer__partner-label">Sécurité &amp; conformité</span>
-          <p class="footer__partner-text muted">
-            Processeur de paiement certifié <strong>3D&nbsp;Secure</strong>,
-            <strong>PCI&nbsp;DSS niveau&nbsp;1</strong> et <strong>RGPD</strong>.
-          </p>
+          <span class="footer__partner-label">{t.partnerLabel}</span>
+          <p class="footer__partner-text muted">{t.partnerText}</p>
         </div>
       </div>
 
       <div class="footer__cols">
-        {cols.map((c) => (
+        {t.cols.map((c) => (
           <div class="footer__col">
             <h4>{c.title}</h4>
             <ul>
@@ -55,8 +37,8 @@ const year = new Date().getFullYear();
     </div>
 
     <div class="footer__bottom">
-      <span class="muted">© {year} SquidLane. Tous droits réservés.</span>
-      <span class="muted">Conçu pour les marchands qui scalent.</span>
+      <span class="muted">© {year} SquidLane. {t.rights}</span>
+      <span class="muted">{t.tag}</span>
     </div>
   </div>
 </footer>
