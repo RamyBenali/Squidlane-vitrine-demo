@@ -39,16 +39,16 @@ const t = getContent(lang).features;
         </div>
       </article>
 
-      <!-- Checkout custom -->
-      <article class="bento__card" data-reveal-item>
-        <div class="bento__icon"><Icon name="cart" size={22} /></div>
-        <h3>{t.checkoutTitle}</h3>
-        <p class="muted">{t.checkoutText}</p>
-        <a href={CHECKOUT_DEMO} target="_blank" rel="noopener" class="bento__link">
-          {t.seeCheckout}
-          <Icon name="arrowRight" size={15} />
-        </a>
-      </article>
+      <!-- Cartes fonctionnalités (génériques, tailles variables) -->
+      {
+        t.cards.map((c) => (
+          <article class:list={['bento__card', { 'bento__card--wide': 'wide' in c && c.wide }]} data-reveal-item>
+            <div class="bento__icon"><Icon name={c.icon} size={22} /></div>
+            <h3>{c.title}</h3>
+            <p class="muted">{c.text}</p>
+          </article>
+        ))
+      }
 
       <!-- Moyens de paiement -->
       <article class="bento__card" data-reveal-item>
@@ -56,20 +56,6 @@ const t = getContent(lang).features;
         <h3>{t.methodsTitle}</h3>
         <p class="muted">{t.methodsText}</p>
         <PaymentMarks brands={['visa', 'mastercard', 'amex', 'applepay']} />
-      </article>
-
-      <!-- Multi-devises -->
-      <article class="bento__card" data-reveal-item>
-        <div class="bento__icon"><Icon name="globe" size={22} /></div>
-        <h3>{t.currenciesTitle}</h3>
-        <p class="muted">{t.currenciesText}</p>
-      </article>
-
-      <!-- Gestion marchand -->
-      <article class="bento__card" data-reveal-item>
-        <div class="bento__icon"><Icon name="dash" size={22} /></div>
-        <h3>{t.manageTitle}</h3>
-        <p class="muted">{t.manageText}</p>
       </article>
 
       <!-- Protection (large) -->
@@ -98,6 +84,7 @@ const t = getContent(lang).features;
   .bento {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+    grid-auto-flow: dense;
     gap: 1.1rem;
   }
   .bento__card {

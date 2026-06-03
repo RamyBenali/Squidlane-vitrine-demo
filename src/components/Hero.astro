@@ -23,7 +23,7 @@ const p = t.paycard;
       <h1 class="hero__title">
         {
           t.title.map((l) => (
-            <span class:list={['line', { 'line--muted': !('accent' in l) }]}>
+            <span class:list={['line', { 'line--big': 'big' in l, 'line--accent': 'accent' in l }]}>
               <span data-hero-line class:list={{ 'gradient-text': 'accent' in l }}>{l.text}</span>
             </span>
           ))
@@ -33,7 +33,7 @@ const p = t.paycard;
       <p class="hero__sub" data-hero-sub>{t.subtitle}</p>
 
       <div class="hero__ctas">
-        <a href="#contact" class="btn btn--primary btn--lg" data-hero-cta data-magnetic>
+        <a href="#contact" class="btn btn--primary btn--lg" data-hero-cta>
           {t.ctaPrimary}
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </a>
@@ -127,20 +127,34 @@ const p = t.paycard;
 
   .hero__title {
     font-size: var(--fs-display);
-    line-height: 1.02;
+    line-height: 1.0;
     margin-bottom: 1.5rem;
-  }
-  .hero__title .line--muted span {
-    color: var(--text-300);
-    font-weight: 600;
   }
   .hero__title .line {
     display: block;
     overflow: hidden;
-    padding-bottom: 0.04em;
+    padding-bottom: 0.06em;
   }
   .hero__title .line span {
     display: block;
+  }
+  /* "Premium payments" — mis en avant : plus grand, blanc éclatant, gras */
+  .hero__title .line--big {
+    font-size: 1.14em;
+    margin-bottom: 0.04em;
+  }
+  .hero__title .line--big span {
+    color: var(--text-100);
+    font-weight: 800;
+    letter-spacing: -0.035em;
+  }
+  /* "for high-quality merchants" — dégradé blanc→rose, plus discret */
+  .hero__title .line--accent {
+    font-size: 0.82em;
+  }
+  .hero__title .line--accent span {
+    font-weight: 600;
+    letter-spacing: -0.02em;
   }
 
   .hero__sub {
@@ -159,6 +173,12 @@ const p = t.paycard;
     flex-wrap: wrap;
     gap: 1rem;
     margin-bottom: 2.2rem;
+  }
+  /* Boutons hero : animation d'apparition autorisée, mais AUCUN mouvement au survol/clic
+     (ni magnétique, ni lift) — c'est ce qui causait le décalage. */
+  .hero__ctas .btn:hover,
+  .hero__ctas .btn:active {
+    transform: none !important;
   }
 
   .hero__trust {

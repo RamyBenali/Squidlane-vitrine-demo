@@ -54,8 +54,8 @@ export const content = {
     hero: {
       eyebrow: 'Premium payment solution',
       title: [
-        { text: 'Premium payments for' },
-        { text: 'high-quality merchants.', accent: true },
+        { text: 'Premium payments', big: true },
+        { text: 'for high-quality merchants.', accent: true },
       ],
       subtitle:
         'Reliable payments, human support, and total peace of mind — so you can focus on growing your business.',
@@ -148,21 +148,60 @@ export const content = {
         'Create secure, shareable links in seconds from your dashboard. Send them, get paid, and track every payment in real time.',
       copy: 'Copy',
       copied: 'Copied',
-      checkoutTitle: 'Proprietary Custom Checkout',
-      checkoutText:
-        'A beautiful, high-converting checkout with native Shopify and WooCommerce integrations — your brand, our infrastructure.',
-      seeCheckout: 'See an example checkout',
       methodsTitle: 'Card payments',
       methodsText: 'Visa, Mastercard, American Express and Apple Pay.',
-      currenciesTitle: 'EUR & USD',
-      currenciesText:
-        'Checkouts in EUR or USD. Customers can pay in many major currencies (GBP, CHF, CAD, AUD…) with automatic bank conversion.',
-      manageTitle: 'Full Merchant Management',
-      manageText:
-        'Onboarding, KYC/AML, refunds, chargebacks and payouts — all handled by us, so you don’t have to.',
       protectTitle: 'No frozen funds — guaranteed',
       protectText:
         'Once your account is approved, you collect with total peace of mind, backed by real human support.',
+      cards: [
+        {
+          icon: 'cart',
+          title: 'Proprietary Custom Checkout',
+          text: 'A beautiful, high-converting checkout with native Shopify and WooCommerce integrations — your brand, our infrastructure.',
+        },
+        {
+          icon: 'layers',
+          title: 'Conversion boosters',
+          text: 'One-click upsell, order bump and free trials — lift your average order value out of the box.',
+          wide: true,
+        },
+        {
+          icon: 'repeat',
+          title: 'Subscriptions',
+          text: 'Recurring billing, fully managed — from sign-up to renewals.',
+        },
+        {
+          icon: 'calendar',
+          title: 'Installments',
+          text: 'Let your customers pay in up to 12×.',
+        },
+        {
+          icon: 'code',
+          title: 'Full API & webhooks',
+          text: 'A complete REST API and secure HMAC-signed webhooks to build anything on top of SquidLane.',
+          wide: true,
+        },
+        {
+          icon: 'users',
+          title: 'Workspace environment',
+          text: 'A collaborative workspace to manage your team and access.',
+        },
+        {
+          icon: 'target',
+          title: 'Ad tracking',
+          text: 'Native conversion tracking for Google (Analytics & Ads) and Meta.',
+        },
+        {
+          icon: 'globe',
+          title: 'EUR & USD',
+          text: 'Checkouts in EUR or USD. Customers can pay in many major currencies with automatic bank conversion.',
+        },
+        {
+          icon: 'dash',
+          title: 'Full Merchant Management',
+          text: 'Onboarding, KYC/AML, refunds, chargebacks and payouts — all handled by us.',
+        },
+      ],
     },
     how: {
       eyebrow: 'How it works',
@@ -215,6 +254,7 @@ export const content = {
       title: [{ text: 'Your cash flow,' }, { text: 'faster and faster.', accent: true }],
       lead: 'Free, predictable payouts that speed up as your history grows. Need your funds right away? Express withdrawal is always available.',
       daysUnit: ' days',
+      cryptoNote: 'Crypto payouts available on request.',
       tracks: [
         {
           icon: 'monitor',
@@ -289,7 +329,7 @@ export const content = {
     hero: {
       eyebrow: 'Solution de paiement premium',
       title: [
-        { text: 'Des paiements premium' },
+        { text: 'Des paiements premium', big: true },
         { text: 'pour marchands d’exception.', accent: true },
       ],
       subtitle:
@@ -383,21 +423,58 @@ export const content = {
         'Créez des liens sécurisés et partageables en quelques secondes depuis votre tableau de bord. Envoyez-les, encaissez, suivez chaque paiement en temps réel.',
       copy: 'Copier',
       copied: 'Copié',
-      checkoutTitle: 'Checkout sur-mesure propriétaire',
-      checkoutText:
-        'Un checkout élégant et hautement convertissant, avec intégrations natives Shopify et WooCommerce — votre marque, notre infrastructure.',
-      seeCheckout: 'Voir un exemple de checkout',
       methodsTitle: 'Paiement par carte',
       methodsText: 'Visa, Mastercard, American Express et Apple Pay.',
-      currenciesTitle: 'EUR & USD',
-      currenciesText:
-        'Checkouts en EUR ou USD. Vos clients paient dans la plupart des grandes devises (GBP, CHF, CAD, AUD…) avec conversion bancaire automatique.',
-      manageTitle: 'Gestion marchand complète',
-      manageText:
-        'Onboarding, KYC/AML, remboursements, litiges et versements — tout est géré par nos soins.',
       protectTitle: 'Zéro fonds gelé — garanti',
       protectText:
         'Une fois votre compte approuvé, vous encaissez l’esprit tranquille, avec un vrai support humain à vos côtés.',
+      cards: [
+        {
+          icon: 'cart',
+          title: 'Checkout sur-mesure propriétaire',
+          text: 'Un checkout élégant et hautement convertissant, avec intégrations natives Shopify et WooCommerce — votre marque, notre infrastructure.',
+        },
+        {
+          icon: 'layers',
+          title: 'Boosters de conversion',
+          text: 'Upsell en un clic, order bump et essais gratuits — augmentez le panier moyen d’emblée.',
+        },
+        {
+          icon: 'repeat',
+          title: 'Abonnements',
+          text: 'Facturation récurrente entièrement gérée — de l’inscription aux renouvellements.',
+        },
+        {
+          icon: 'calendar',
+          title: 'Paiement en plusieurs fois',
+          text: 'Laissez vos clients payer jusqu’à 12×.',
+        },
+        {
+          icon: 'code',
+          title: 'API complète & webhooks',
+          text: 'Une API REST complète et des webhooks sécurisés signés HMAC pour tout construire.',
+        },
+        {
+          icon: 'users',
+          title: 'Environnement workspace',
+          text: 'Un espace de travail collaboratif pour gérer votre équipe et les accès.',
+        },
+        {
+          icon: 'target',
+          title: 'Tracking publicitaire',
+          text: 'Suivi de conversion natif pour Google (Analytics & Ads) et Meta.',
+        },
+        {
+          icon: 'globe',
+          title: 'EUR & USD',
+          text: 'Checkouts en EUR ou USD. Vos clients paient dans la plupart des grandes devises avec conversion bancaire automatique.',
+        },
+        {
+          icon: 'dash',
+          title: 'Gestion marchand complète',
+          text: 'Onboarding, KYC/AML, remboursements, litiges et versements — tout est géré par nos soins.',
+        },
+      ],
     },
     how: {
       eyebrow: 'Comment ça marche',
@@ -450,6 +527,7 @@ export const content = {
       title: [{ text: 'Votre trésorerie,' }, { text: 'de plus en plus rapide.', accent: true }],
       lead: 'Des versements gratuits et prévisibles, qui s’accélèrent à mesure que votre historique grandit. Besoin de vos fonds tout de suite ? Le retrait express est toujours là.',
       daysUnit: ' jours',
+      cryptoNote: 'Versements en crypto disponibles sur demande.',
       tracks: [
         {
           icon: 'monitor',

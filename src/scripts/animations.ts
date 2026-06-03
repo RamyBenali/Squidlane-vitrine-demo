@@ -61,7 +61,7 @@ export function initAnimations() {
     initHeroTimeline();
     initHeroAmbient();
     initCounters();
-    initMagnetic();
+    initMagnetic(lenis);
     initTilt();
     initScrollProgress();
     initNav();
@@ -258,20 +258,45 @@ function initCounters() {
 }
 
 /* ---------- Magnetic buttons (bornés, CTA seulement) ---------- */
-function initMagnetic() {
+function initMagnetic(lenis: Lenis) {
   if (!window.matchMedia('(pointer: fine)').matches) return;
-  document.querySelectorAll<HTMLElement>('[data-magnetic]').forEach((el) => {
+  const els = Array.from(document.querySelectorAll<HTMLElement>('[data-magnetic]'));
+  if (!els.length) return;
+
+  // Reset animé (quand le survol se termine).
+  const animReset = (el: HTMLElement) =>
+    gsap.to(el, { x: 0, y: 0, scale: 1, duration: 0.4, ease: 'power3.out', overwrite: true });
+
+  // Reset instantané + tue le tween en cours (sinon il reprend et réapplique le décalage).
+  const snapReset = (el: HTMLElement) => {
+    gsap.killTweensOf(el);
+    gsap.set(el, { x: 0, y: 0, scale: 1 });
+  };
+
+  els.forEach((el) => {
     const max = 14;
     el.addEventListener('mousemove', (e) => {
       const r = el.getBoundingClientRect();
       const x = gsap.utils.clamp(-max, max, (e.clientX - (r.left + r.width / 2)) * 0.35);
       const y = gsap.utils.clamp(-max, max, (e.clientY - (r.top + r.height / 2)) * 0.35);
-      gsap.to(el, { x, y, scale: 1.02, duration: 0.4, ease: 'power3.out' });
+      gsap.to(el, { x, y, scale: 1.02, duration: 0.4, ease: 'power3.out', overwrite: true });
     });
-    el.addEventListener('mouseleave', () => {
-      gsap.to(el, { x: 0, y: 0, scale: 1, duration: 0.6, ease: 'elastic.out(1, 0.5)' });
-    });
+    el.addEventListener('mouseleave', () => animReset(el));
   });
+
+  // Au scroll (Lenis), le curseur ne déclenche pas forcément de mouseleave : on remet
+  // TOUS les boutons d'aplomb en tuant tout tween résiduel → plus de décalage persistant.
+  let dirty = false;
+  lenis.on('scroll', () => {
+    if (dirty) return; // déjà à zéro depuis le dernier mousemove
+    els.forEach(snapReset);
+    dirty = true;
+  });
+  els.forEach((el) =>
+    el.addEventListener('mousemove', () => {
+      dirty = false;
+    })
+  );
 }
 
 /* ---------- Nav background on scroll ---------- */
