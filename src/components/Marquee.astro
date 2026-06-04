@@ -70,4 +70,38 @@ const items = getContent(lang).marquee;
   .marquee:hover .marquee__track {
     animation-play-state: paused;
   }
+
+  /* Le track translate de -50 % : sur petit écran la distance pixel est plus
+     courte, donc à durée égale le défilement paraît beaucoup plus rapide.
+     On rallonge la durée à mesure que l'écran rétrécit pour garder une
+     vitesse perçue constante. */
+  @media (max-width: 1024px) {
+    .marquee__track {
+      animation-duration: 48s;
+    }
+  }
+  @media (max-width: 768px) {
+    .marquee {
+      padding-block: 1.2rem;
+    }
+    .marquee__track {
+      animation-duration: 60s;
+    }
+    .marquee__item {
+      font-size: 0.95rem;
+      gap: 1.25rem;
+      padding-right: 1.25rem;
+    }
+  }
+  @media (max-width: 480px) {
+    .marquee__track {
+      animation-duration: 75s;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marquee__track {
+      animation: none;
+    }
+  }
 </style>

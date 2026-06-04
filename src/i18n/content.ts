@@ -192,6 +192,12 @@ export const content = {
           text: 'Native conversion tracking for Google (Analytics & Ads) and Meta.',
         },
         {
+          icon: 'shieldAlert',
+          title: 'Chargeback prevention & fraud monitoring',
+          text: 'Real-time chargeback prevention alerts and continuous fraud monitoring to protect your revenue.',
+          wide: true,
+        },
+        {
           icon: 'globe',
           title: 'EUR & USD',
           text: 'Checkouts in EUR or USD. Customers can pay in many major currencies with automatic bank conversion.',
@@ -463,6 +469,12 @@ export const content = {
           icon: 'target',
           title: 'Tracking publicitaire',
           text: 'Suivi de conversion natif pour Google (Analytics & Ads) et Meta.',
+        },
+        {
+          icon: 'shieldAlert',
+          title: 'Prévention des litiges & monitoring fraude',
+          text: 'Alertes de prévention des chargebacks en temps réel et monitoring continu de la fraude pour protéger vos revenus.',
+          wide: true,
         },
         {
           icon: 'globe',
