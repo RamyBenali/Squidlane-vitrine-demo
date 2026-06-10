@@ -11,6 +11,7 @@ export const defaultLang: Lang = 'en';
 
 export const CHECKOUT_DEMO = 'https://theclub.squidlane.com/buy/offr_fv9_Sn8npo';
 export const TELEGRAM_URL = 'https://t.me/VadimBonzai';
+export const APPLY_URL = 'https://app.iclosed.io/e/bonzai/discover-squidlane';
 export const EMAIL = 'support@bonzai.pro';
 
 // Paliers de prix (libellés issus de la copy, virgules décimales telles quelles).
@@ -287,7 +288,7 @@ export const content = {
       eyebrow: 'Contact',
       title: [{ text: 'Move to a partner that' }, { text: 'plays on your side.', accent: true }],
       lead: 'Tell us about your business — we’ll get back to you quickly, with a real human. Pick the channel that suits you.',
-      telegram: 'Message us on Telegram',
+      telegram: 'Apply now',
     },
     footer: {
       tagline:
@@ -566,7 +567,7 @@ export const content = {
       eyebrow: 'Contact',
       title: [{ text: 'Passez à un partenaire' }, { text: 'qui joue dans votre camp.', accent: true }],
       lead: 'Parlez-nous de votre activité — on revient vers vous rapidement, avec un vrai interlocuteur. Choisissez le canal qui vous convient.',
-      telegram: 'Nous écrire sur Telegram',
+      telegram: 'Apply now',
     },
     footer: {
       tagline:

@@ -1,6 +1,6 @@
 ---
 import Icon from './Icon.astro';
-import { getContent, TELEGRAM_URL, EMAIL, type Lang } from '../i18n/content';
+import { getContent, APPLY_URL, EMAIL, type Lang } from '../i18n/content';
 
 interface Props {
   lang?: Lang;
@@ -25,8 +25,8 @@ const t = getContent(lang).contact;
         <p class="cta__lead muted">{t.lead}</p>
 
         <div class="cta__actions">
-          <a href={TELEGRAM_URL} target="_blank" rel="noopener" class="btn btn--primary btn--lg" data-magnetic>
-            <Icon name="telegram" size={18} /> {t.telegram}
+          <a href={APPLY_URL} target="_blank" rel="noopener" class="btn btn--primary btn--lg" data-magnetic>
+            {t.telegram} <Icon name="arrowRight" size={18} />
           </a>
           <a href={`mailto:${EMAIL}`} class="btn btn--ghost btn--lg">
             <Icon name="mail" size={18} /> {EMAIL}
