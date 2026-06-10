@@ -41,7 +41,7 @@ export const content = {
     meta: {
       title: 'SquidLane — Premium payments for high-quality merchants',
       description:
-        'Premium payment solution for high-quality merchants: reliable payments, human support, and total peace of mind. No frozen funds, no surprise suspensions.',
+        'SquidLane is the selective payment solution that protects your revenue: instant payment links, custom checkout, subscriptions and human support — with no frozen funds and no surprise suspensions.',
     },
     nav: {
       links: [
